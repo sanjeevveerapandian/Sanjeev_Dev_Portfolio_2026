@@ -52,6 +52,10 @@ export const metadata: Metadata = {
     description: "Full-Stack Engineer · MERN, .NET/C#, Angular · Chennai, India",
   },
   robots: { index: true, follow: true },
+
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 /* Sync localStorage → <html class> before paint — default light unless stored value is dark */

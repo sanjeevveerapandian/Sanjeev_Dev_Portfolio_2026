@@ -65,7 +65,7 @@ export default function SectionContact() {
           {[
             { label: "Get in touch →", href: "mailto:sanjeevveerapandian@gmail.com", primary: true },
             { label: "LinkedIn ↗", href: "https://www.linkedin.com/in/sanjeev-veerapandian-43692a243/", primary: false },
-            { label: "Resume ↗", href: "https://drive.google.com/file/d/1fBWbbh_zIB1pkwjzNEAcoWCuaREiU-kf/view?usp=sharing", primary: false },
+            { label: "Resume ↗", href: "https://drive.google.com/file/d/1M-KyhbLMVbgQeG7ynLgnIY4tfS1ceFNF/view?usp=sharing", primary: false },
           ].map(({ label, href, primary }) => (
             <a key={label} href={href} target={href.startsWith("mailto") ? undefined : "_blank"} rel="noopener noreferrer"
               className="inline-flex min-h-[44px] touch-manipulation items-center justify-center sm:min-h-0"
