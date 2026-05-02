@@ -1,0 +1,39 @@
+{
+  "name": "sanjeev-portfolio-v3",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "clean": "node -e \"const fs=require('fs');const rm=(p)=>{try{fs.rmSync(p,{recursive:true,force:true})}catch(e){}}; rm('.next'); rm('node_modules/.cache');\"",
+    "dev": "next dev",
+    "dev:fresh": "npm run clean && next dev",
+    "build": "next build",
+    "build:fresh": "npm run clean && next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/three": "^0.162.0",
+    "lucide-react": "^0.365.0",
+    "next": "14.1.4",
+    "next-themes": "^0.3.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-fast-marquee": "^1.6.5",
+    "three": "^0.162.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.1.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5"
+  }
+}

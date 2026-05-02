@@ -1,0 +1,319 @@
+/* Fonts load via next/font/google in layout.tsx — avoids blocking @import that can prevent Tailwind/CSS from applying when fonts.googleapis.com is slow or blocked. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light palette: :root + .light so next-themes’ html.light always picks up tokens */
+  :root,
+  .light {
+    /* --font-display, --font-body, --font-mono set by next/font on <html> */
+    --canvas:      #FAF9F6;
+    --surface:     #F3F1EC;
+    --elevated:    #EAE6DD;
+    --nav-scrim:   rgba(250, 249, 246, 0.9);
+    --bdr:         rgba(55, 42, 22, 0.09);
+    --bdr-strong:  rgba(55, 42, 22, 0.14);
+    --ink-1:       #1C1917;
+    --ink-2:       #57534E;
+    --ink-3:       #A8A29E;
+    --blue:        #B45309;
+    --blue-dim:    rgba(180, 83, 9, 0.11);
+    --blue-glow:   rgba(180, 83, 9, 0.14);
+    --glow-color:  rgba(180, 83, 9, 0.16);
+  }
+  /* Dark: high-contrast “ink + ember” — deeper blacks, louder amber, sharper chrome */
+  .dark {
+    --canvas:      #030201;
+    --surface:     #0F0C09;
+    --elevated:    #1A1611;
+    --nav-scrim:   rgba(3, 2, 1, 0.94);
+    --bdr:         rgba(245, 158, 11, 0.14);
+    --bdr-strong:  rgba(251, 191, 36, 0.28);
+    --ink-1:       #FFFBF5;
+    --ink-2:       #D4CEC4;
+    --ink-3:       #8A847A;
+    --blue:        #F59E0B;
+    --blue-dim:    rgba(245, 158, 11, 0.24);
+    --blue-glow:   rgba(245, 158, 11, 0.55);
+    --glow-color:  rgba(245, 158, 11, 0.32);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    scroll-behavior: smooth;
+    /* Avoid “empty” viewport if body paints late; keeps canvas behind chrome */
+    background-color: var(--canvas);
+    color: var(--ink-1);
+  }
+  body {
+    font-family: var(--font-body), system-ui, sans-serif;
+    background-color: var(--canvas);
+    color: var(--ink-1);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  /* Keep dark mode a flat canvas — layered gradients caused blank/grey layers on some WebKit builds */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--canvas); }
+  ::-webkit-scrollbar-thumb { background: var(--bdr-strong); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+  ::selection { background: var(--blue-dim); color: var(--blue); }
+
+  /* Anchor targets clear the fixed nav + notch */
+  section[id] {
+    scroll-margin-top: calc(56px + env(safe-area-inset-top));
+  }
+  @media (min-width: 640px) {
+    section[id] {
+      scroll-margin-top: calc(64px + env(safe-area-inset-top));
+    }
+  }
+
+  :where(a, button, input, textarea, select):focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+.section-stack {
+  margin-bottom: clamp(3.25rem, 7vw, 6.25rem);
+}
+
+/* Project cards — hover only on real pointers (touch won’t get “stuck” hover / broken taps) */
+.project-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--bdr);
+  background: var(--surface);
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 12px 0 0 12px;
+  background: var(--bdr);
+  pointer-events: none;
+  transition: background 0.25s;
+  z-index: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    border-color: var(--blue);
+    background: var(--elevated);
+    box-shadow: 0 0 0 1px var(--blue-glow), 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+  .project-card:hover::before {
+    background: var(--blue);
+  }
+}
+
+.project-card[data-open="true"] {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px var(--blue-glow), 0 6px 28px rgba(0, 0, 0, 0.08);
+}
+
+.project-card[data-open="true"]::before {
+  background: var(--blue);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card[data-open="true"]:hover {
+    background: var(--elevated);
+    box-shadow: 0 0 0 1px var(--blue-glow), 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.project-card .project-trigger {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card .project-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.project-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--bdr);
+  color: var(--ink-3);
+  background: transparent;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-toggle {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: var(--blue-dim);
+  }
+}
+
+.project-card[data-open="true"] .project-toggle {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-dim);
+}
+
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link:focus {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  top: max(1rem, env(safe-area-inset-top));
+  z-index: 100000;
+  clip: auto;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.65rem 1rem;
+  overflow: visible;
+  white-space: normal;
+  border-radius: 8px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-1);
+  background: var(--surface);
+  border: 1px solid var(--bdr-strong);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+}
+
+#cursor-spotlight {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* Below all page UI (z-index ≥1) so grain never covers content */
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+@media (pointer: coarse) {
+  body::after {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    opacity: 0;
+  }
+}
+
+/* Slightly richer film grain in dark (still off for coarse pointer / reduced motion above) */
+@media (pointer: fine) {
+  .dark body::after {
+    opacity: 0.035;
+  }
+}
+
+@layer utilities {
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes pulseDot {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%     { opacity:0.35; transform:scale(1.55); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -300% center; }
+    100% { background-position: 300% center; }
+  }
+  @keyframes floatY {
+    0%,100% { transform: translateY(0px) rotate(0deg); }
+    33%     { transform: translateY(-8px) rotate(0.5deg); }
+    66%     { transform: translateY(4px) rotate(-0.3deg); }
+  }
+  @keyframes lineGrow {
+    from { transform: scaleX(0); transform-origin: left; }
+    to   { transform: scaleX(1); transform-origin: left; }
+  }
+
+  /* forwards (not both): avoids opacity:0 “backwards” fill when animations are unsupported */
+  .anim-fadeup  { animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .anim-fadein  { animation: fadeIn 0.6s ease forwards; }
+  .pulse-dot    { animation: pulseDot 2.2s ease-in-out infinite; }
+  .pulse-green  { animation: pulseDot 2s ease-in-out infinite; }
+  .float-anim   { animation: floatY 6s ease-in-out infinite; }
+
+  /* Always visible — scroll-reveal hid entire sections when IO/JS misbehaved (blank page) */
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .anim-fadeup,
+    .anim-fadein {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .float-anim {
+      animation: none !important;
+    }
+  }
+
+  .shimmer-text {
+    background: linear-gradient(90deg, var(--ink-1) 0%, var(--blue) 45%, var(--ink-2) 55%, var(--ink-1) 100%);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s linear infinite;
+  }
+
+  .line-grow {
+    animation: lineGrow 1.2s cubic-bezier(0.22,1,0.36,1) 0.9s both;
+  }
+}
