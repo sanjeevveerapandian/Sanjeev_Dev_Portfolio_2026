@@ -139,7 +139,7 @@ export default function SectionHero() {
               View Projects <ArrowRight size={14} />
             </button>
             <a
-              href="https://drive.google.com/file/d/1M-KyhbLMVbgQeG7ynLgnIY4tfS1ceFNF/view"
+              href="https://drive.google.com/file/d/16HOG-BTc9iBqQHR-CNXjcvggzDrKjWej/view?usp=sharing"
               target="_blank" rel="noopener noreferrer"
               className="min-h-[44px] touch-manipulation sm:min-h-0"
               style={{
