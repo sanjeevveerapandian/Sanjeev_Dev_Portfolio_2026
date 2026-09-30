@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { ArrowDown, ArrowRight } from "lucide-react";
+import { RESUME_URL } from "@/lib/constants";
 
 const HeroGlobe = dynamic(() => import("@/components/3d/HeroGlobe"), { ssr: false });
 
@@ -140,7 +141,7 @@ export default function SectionHero() {
               View Projects <ArrowRight size={14} />
             </button>
             <a
-              href="https://drive.google.com/file/d/1pxokwKZclyBaysjRfez_xD6sbhIv81aV/view?usp=sharing"
+              href={RESUME_URL}
               target="_blank" rel="noopener noreferrer"
               className="min-h-[44px] touch-manipulation sm:min-h-0"
               style={{

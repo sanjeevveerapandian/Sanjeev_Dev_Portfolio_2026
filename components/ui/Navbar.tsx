@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Menu, X } from "lucide-react";
+import { RESUME_URL } from "@/lib/constants";
 
 const NAV_LINKS = [
   { label: "About",       id: "about" },
@@ -10,8 +11,6 @@ const NAV_LINKS = [
   { label: "Skills",      id: "skills" },
   { label: "Contact",     id: "contact" },
 ];
-
-const RESUME_URL = "https://drive.google.com/file/d/1pxokwKZclyBaysjRfez_xD6sbhIv81aV/view?usp=sharing";
 
 export default function Navbar({ active }: { active: string }) {
   const [scrolled, setScrolled] = useState(false);

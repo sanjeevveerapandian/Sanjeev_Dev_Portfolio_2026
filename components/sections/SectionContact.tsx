@@ -2,6 +2,7 @@
 import { useReveal } from "@/hooks/useReveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Mail, MapPin } from "lucide-react";
+import { RESUME_URL } from "@/lib/constants";
 
 export default function SectionContact() {
   const ref = useReveal<HTMLElement>();
@@ -65,7 +66,7 @@ export default function SectionContact() {
           {[
             { label: "Get in touch →", href: "mailto:sanjeevveerapandian@gmail.com", primary: true },
             { label: "LinkedIn ↗", href: "https://www.linkedin.com/in/sanjeev-veerapandian-43692a243/", primary: false },
-            { label: "Resume ↗", href: "https://drive.google.com/file/d/1pxokwKZclyBaysjRfez_xD6sbhIv81aV/view?usp=sharing", primary: false },
+            { label: "Resume ↗", href: RESUME_URL, primary: false },
           ].map(({ label, href, primary }) => (
             <a key={label} href={href} target={href.startsWith("mailto") ? undefined : "_blank"} rel="noopener noreferrer"
               className="inline-flex min-h-[44px] touch-manipulation items-center justify-center sm:min-h-0"
