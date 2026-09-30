@@ -37,19 +37,19 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "Sanjeev Veerapandian — Full-Stack Engineer",
-  description: "Full-Stack Engineer specialising in MERN, .NET/C#, Angular. Building scalable production systems from Chennai, India.",
+  description: "Full-stack software engineer (B.E. CSE, 2026) building production systems with React, Node.js, ASP.NET Core and SQL. Based in Chennai, India.",
   keywords: ["Full Stack Developer", "MERN", "React", "Node.js", ".NET", "Chennai", "Sanjeev Veerapandian"],
   authors: [{ name: "Sanjeev Veerapandian" }],
   openGraph: {
     title: "Sanjeev Veerapandian — Full-Stack Engineer",
-    description: "Full-Stack Engineer · MERN, .NET/C#, Angular · Chennai, India",
+    description: "Full-Stack Engineer · React, Node.js, ASP.NET Core, SQL · Chennai, India",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
     title: "Sanjeev Veerapandian — Full-Stack Engineer",
-    description: "Full-Stack Engineer · MERN, .NET/C#, Angular · Chennai, India",
+    description: "Full-Stack Engineer · React, Node.js, ASP.NET Core, SQL · Chennai, India",
   },
   robots: { index: true, follow: true },
 

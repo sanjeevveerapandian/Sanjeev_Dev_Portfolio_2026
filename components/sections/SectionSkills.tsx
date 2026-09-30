@@ -9,15 +9,15 @@ const Marquee = dynamic(() => import("react-fast-marquee").then((m) => m.default
 });
 
 const CATS = [
-  { label:"Languages",    items:["JavaScript","TypeScript","Java","C#","Python","Dart","HTML/CSS"] },
-  { label:"Backend",      items:["Node.js","Express.js",".NET","FastAPI","REST APIs","WebSockets","JWT Auth"] },
-  { label:"Frontend",     items:["React.js","Next.js 14","Angular","React Native","Tailwind CSS","Framer Motion"] },
-  { label:"Databases",    items:["MongoDB","MS SQL Server","PostgreSQL","Firebase RTDB","Firestore"] },
-  { label:"Cloud & DevOps",items:["Azure","Firebase","Vercel","Git","GitHub Actions","Linux"] },
-  { label:"Concepts",     items:["Clean Architecture","System Design","Homomorphic Encryption","IoT Networking","LLM Integration","Agile"] },
+  { label:"Languages",     items:["C#","Java","JavaScript","TypeScript","Python","PHP","SQL"] },
+  { label:"Backend",       items:["ASP.NET Core","Entity Framework Core","Node.js / Express","Spring Boot","Laravel","FastAPI","REST API Design","JWT / RBAC"] },
+  { label:"Frontend",      items:["React.js","Next.js","Angular","React Native","Tailwind CSS","HTML5 / CSS3"] },
+  { label:"Databases",     items:["MS SQL Server","MySQL","MongoDB","Firebase Firestore"] },
+  { label:"Cloud & DevOps",items:["Azure","Docker","Git / GitHub","GitHub Actions","Postman","Linux"] },
+  { label:"Concepts",      items:["DSA","System Design","Clean Architecture","SOLID","Agile / Scrum","Unit & Integration Testing"] },
 ];
 
-const MARQUEE = ["React.js","Next.js","TypeScript","Java","Node.js","Angular",".NET/C#","MongoDB","PostgreSQL","Azure","Docker","Git","Python","React Native","Tailwind CSS","Firebase","REST APIs","WebSockets","LLM Integration","Clean Architecture","FastAPI","JWT Auth","System Design"];
+const MARQUEE = ["React.js","Next.js","TypeScript","ASP.NET Core","C#","Node.js","Express","Java","Spring Boot","Angular","MS SQL Server","MySQL","MongoDB","Docker","Azure","Git","Python","Laravel","Tailwind CSS","Firebase","REST APIs","JWT Auth","Clean Architecture","System Design"];
 
 export default function SectionSkills() {
   const ref = useReveal<HTMLElement>();

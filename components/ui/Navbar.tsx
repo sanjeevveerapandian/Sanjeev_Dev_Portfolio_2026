@@ -56,7 +56,7 @@ export default function Navbar({ active }: { active: string }) {
           SV<span style={{ color: "var(--blue)", fontStyle: "italic" }}>.</span>
         </button>
 
-        <nav style={{ display: "flex", alignItems: "center", gap: 2 }} className="hidden md:flex">
+        <nav aria-label="Primary" style={{ alignItems: "center", gap: 2 }} className="hidden md:flex">
           {NAV_LINKS.map(({ label, id }) => {
             const isActive = active === id;
             return (

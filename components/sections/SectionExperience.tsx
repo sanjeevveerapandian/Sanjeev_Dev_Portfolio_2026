@@ -6,32 +6,41 @@ import { ArrowUpRight } from "lucide-react";
 
 const EXP = [
   {
-    period: "Feb 2026 — Present",
+    period: "Feb 2026 — Sep 2026",
     company: "Kanini Software Solutions",
-    role: "Intern — Full Stack .NET Developer",
+    role: "Product Development Intern",
     location: "Chennai · On-site",
-    desc: "Engineered scalable backend modules and RESTful APIs using .NET and MS SQL Server. Refactored architecture with modular C# principles improving maintainability and reducing team onboarding time.",
-    stack: ["Angular", ".NET", "C#", "MS SQL Server", "REST APIs"],
+    points: [
+      "Built and maintained 10+ REST API endpoints in ASP.NET Core (C#) with Entity Framework Core, LINQ and stored procedures on MS SQL Server, validated with Postman across multiple business modules.",
+      "Refactored legacy service layers to Clean Architecture, SOLID and dependency injection during code reviews, and debugged Angular-to-.NET contract mismatches, cutting QA turnaround.",
+    ],
+    stack: ["ASP.NET Core", "C#", "EF Core", "MS SQL Server", "Angular"],
     url: "https://kanini.com",
-    current: true,
+    current: false,
   },
   {
     period: "Jul 2025 — Dec 2025",
     company: "TakeMyTickets",
-    role: "Software Developer Intern",
+    role: "Backend Developer Intern",
     location: "Chennai · On-site",
-    desc: "Built and secured middleware components and RESTful APIs, implementing authentication flows. Developed responsive React.js interfaces to improve feature delivery and platform stability.",
-    stack: ["React.js", "Node.js", "Tailwind CSS", "Middleware", "Auth"],
+    points: [
+      "Designed and shipped Node.js/Express API layers with JWT authentication and role-based access control for a live ticketing platform serving ~8,000 monthly users.",
+      "Delivered 5+ features across 6 Agile sprints, owning core business logic and React.js integration and working with QA on release quality.",
+    ],
+    stack: ["Node.js", "Express", "JWT / RBAC", "React.js"],
     url: "#",
     current: false,
   },
   {
     period: "Jul 2024 — Jun 2025",
     company: "Ogrelix Solutions",
-    role: "Part-Time Full Stack Developer",
+    role: "Full Stack Developer (Part-time)",
     location: "Chennai · Hybrid",
-    desc: "Optimised MongoDB query pipelines and indexing strategies, reducing API response time under high load. Defined clean API contracts enabling cleaner third-party integrations.",
-    stack: ["React.js", "Node.js", "MongoDB", "Query Optimization"],
+    points: [
+      "Tuned MongoDB aggregation queries and added compound indexes, cutting production API latency by ~60% on high-traffic endpoints.",
+      "Built REST APIs and business logic in Laravel (PHP) with MySQL, contributed MERN features, and defined contracts for 4 third-party integrations across 8+ releases.",
+    ],
+    stack: ["MongoDB", "Laravel", "MySQL", "MERN", "REST APIs"],
     url: "#",
     current: false,
   },
@@ -106,9 +115,11 @@ function ExpCard({ exp }: { exp: typeof EXP[0] }) {
         </div>
       </div>
 
-      <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--ink-2)", lineHeight: 1.8, marginBottom: 16, maxWidth: 560 }}>
-        {exp.desc}
-      </p>
+      <ul className="exp-points">
+        {exp.points.map((pt) => (
+          <li key={pt}>{pt}</li>
+        ))}
+      </ul>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
         {exp.stack.map((s) => (
@@ -141,7 +152,7 @@ export default function SectionExperience() {
           Certifications
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }} className="max-sm:grid-cols-1">
-          {["C# Masterclass — Udemy","React / Next.js / Redux — Udemy","JavaScript — Meta / Coursera","Java Foundations — Oracle Academy","Linux Essentials — Cisco"].map((c) => (
+          {["Java Foundations — Oracle","React & Next.js — Udemy","JavaScript — Meta / Coursera","C# Masterclass — Udemy","Linux Essentials — Cisco","Problem Solving (Intermediate) — HackerRank"].map((c) => (
             <div key={c} style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ color: "var(--blue)", fontSize: 8 }}>◆</span>
               <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--ink-2)" }}>{c}</span>

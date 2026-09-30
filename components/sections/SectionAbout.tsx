@@ -93,8 +93,8 @@ export default function SectionAbout() {
             </p>
             {[
               "College Ideathon (inter-college innovation) — 9th place",
-              "IIC Regional Meet 2025 by AICTE. — Selected",
-              "24-Hour Hackathon (VIT Chennai) — Made Top 10",
+              "IIC Regional Meet 2025, AICTE — Selected",
+              "Pitchathon, VIT Chennai (MedRush) — Finalist",
             ].map((a) => (
               <div key={a} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
                 <span style={{ color: "var(--blue)", fontSize: 8, marginTop: 5 }}>◆</span>

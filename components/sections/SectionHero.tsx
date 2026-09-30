@@ -42,9 +42,9 @@ function HeroGlobeDeferred() {
 }
 
 const STATS = [
-  { value: "3+",   label: "Years\nexperience" },
-  { value: "5+",   label: "Systems\nshipped" },
-  { value: "3",   label: "Companies\nworked" },
+  { value: "2+",   label: "Years building\nin production" },
+  { value: "~8K",  label: "Monthly users\nserved" },
+  { value: "3",    label: "Companies\nworked" },
 ];
 
 export default function SectionHero() {
@@ -82,7 +82,7 @@ export default function SectionHero() {
           >
             <span className="pulse-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--blue)", display: "inline-block" }} />
             <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ink-2)" }}>
-              Open to opportunities
+              Open to SDE-1 · Full-Stack roles
             </span>
           </div>
 
@@ -108,10 +108,11 @@ export default function SectionHero() {
           {/* Sub headline */}
           <div style={{ marginBottom: 12 }}>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(15px, 2.8vw, 17px)", fontWeight: 400, color: "var(--ink-2)", lineHeight: 1.75, maxWidth: 560 }}>
-              Full-Stack Engineer building production-grade systems —{" "}
-              <span style={{ color: "var(--ink-1)", fontWeight: 500 }}>MERN</span>,{" "}
-              <span style={{ color: "var(--ink-1)", fontWeight: 500 }}>.NET/C#</span>, and{" "}
-              <span style={{ color: "var(--ink-1)", fontWeight: 500 }}>Angular</span> — from API design to deployment.
+              Full-stack engineer shipping production systems with{" "}
+              <span style={{ color: "var(--ink-1)", fontWeight: 500 }}>React</span>,{" "}
+              <span style={{ color: "var(--ink-1)", fontWeight: 500 }}>Node.js</span>,{" "}
+              <span style={{ color: "var(--ink-1)", fontWeight: 500 }}>ASP.NET Core</span> and{" "}
+              <span style={{ color: "var(--ink-1)", fontWeight: 500 }}>SQL</span>, from schema and API design through deployment.
             </p>
           </div>
           <div style={{ marginBottom: 36 }}>
@@ -203,7 +204,7 @@ export default function SectionHero() {
                   color: "var(--blue)",
                 }}
               >
-                ✦ MERN Stack
+                ✦ React / Next.js
               </div>
               <div
                 className="float-anim absolute left-[-0%] bottom-[12%] rounded-lg px-3.5 py-2 font-mono text-[10px] shadow-[0_4px_24px_rgba(0,0,0,0.12)]"
@@ -214,7 +215,7 @@ export default function SectionHero() {
                   color: "var(--blue)",
                 }}
               >
-                ✦ React Native
+                ✦ Node.js
               </div>
               <div
                 className="float-anim absolute bottom-[18%] right-[-2%] rounded-lg px-3.5 py-2 font-mono text-[10px] shadow-[0_4px_24px_rgba(0,0,0,0.12)]"
@@ -236,13 +237,13 @@ export default function SectionHero() {
                   color: "var(--ink-2)",
                 }}
               >
-                ✦ Angular
+                ✦ SQL Server
               </div>
             </div>
           </div>
 
           <div className="mt-4 flex flex-wrap justify-center gap-2 lg:hidden">
-            {["MERN", ".NET / C#", "Angular"].map((t) => (
+            {["React", "Node.js", ".NET / C#", "SQL"].map((t) => (
               <span
                 key={t}
                 className="rounded-full px-3 py-1.5 font-mono text-[10px]"
