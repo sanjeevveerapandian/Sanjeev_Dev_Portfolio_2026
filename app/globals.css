@@ -408,6 +408,7 @@
 
 /* Currently building */
 .building-wrap { margin-top: 28px; }
+.building-wrap--top { margin-top: 0; margin-bottom: 28px; }
 .building-label {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 10px;

@@ -299,41 +299,7 @@ export default function SectionProjects() {
     <section id="projects" ref={ref} className="section-stack reveal">
       <SectionLabel>Projects</SectionLabel>
 
-      <div className="project-filters" role="group" aria-label="Filter projects">
-        {FILTERS.map((f) => {
-          const count = f.id === "all" ? PROJECTS.length : PROJECTS.filter((p) => p.tags.includes(f.id as Tag)).length;
-          return (
-            <button
-              key={f.id}
-              type="button"
-              className="filter-chip"
-              aria-pressed={filter === f.id}
-              onClick={() => setFilter(f.id)}
-            >
-              {f.label}
-              <span className="filter-count">{count}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="project-list">
-        {shown.map((p) => {
-          const idx = PROJECTS.indexOf(p);
-          const num = String(idx + 1).padStart(2, "0");
-          return (
-            <ProjectCard
-              key={p.title}
-              p={p}
-              num={num}
-              panelId={`project-panel-${num}`}
-              defaultOpen={idx === 0}
-            />
-          );
-        })}
-      </div>
-
-      <div className="building-wrap">
+      <div className="building-wrap building-wrap--top">
         <p className="building-label">Open source</p>
         <article className="oss-card">
           <div className="project-meta">
@@ -367,6 +333,40 @@ export default function SectionProjects() {
             </a>
           </div>
         </article>
+      </div>
+
+      <div className="project-filters" role="group" aria-label="Filter projects">
+        {FILTERS.map((f) => {
+          const count = f.id === "all" ? PROJECTS.length : PROJECTS.filter((p) => p.tags.includes(f.id as Tag)).length;
+          return (
+            <button
+              key={f.id}
+              type="button"
+              className="filter-chip"
+              aria-pressed={filter === f.id}
+              onClick={() => setFilter(f.id)}
+            >
+              {f.label}
+              <span className="filter-count">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="project-list">
+        {shown.map((p) => {
+          const idx = PROJECTS.indexOf(p);
+          const num = String(idx + 1).padStart(2, "0");
+          return (
+            <ProjectCard
+              key={p.title}
+              p={p}
+              num={num}
+              panelId={`project-panel-${num}`}
+              defaultOpen={idx === 0}
+            />
+          );
+        })}
       </div>
 
       <div className="building-wrap">
