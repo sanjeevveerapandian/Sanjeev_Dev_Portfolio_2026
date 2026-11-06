@@ -66,7 +66,7 @@ export function TerminalPrompt() {
         push(echo, "Building a stock exchange matching engine in Java, phase by phase, with tests.");
         break;
       case "stack":
-        push(echo, "React / Next.js, Node.js / Express, ASP.NET Core, SQL Server", "also: C#, Java, TypeScript, Python, MongoDB, Docker, Azure");
+        push(echo, "backend   Java / Spring Boot, ASP.NET Core, Node.js / Express", "data      SQL Server, MongoDB, MySQL", "frontend  React / Next.js, TypeScript", "tools     Docker, Azure, Git, GitHub Actions");
         break;
       case "oss":
         push(

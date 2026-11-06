@@ -101,7 +101,7 @@ export default function ResumePage() {
 
       <section className="resume-sec">
         <h2>Skills</h2>
-        <p><strong>Core:</strong> React / Next.js, Node.js / Express, ASP.NET Core, SQL Server.</p>
+        <p><strong>Core:</strong> Java / Spring Boot, ASP.NET Core, Node.js / Express, SQL Server, MongoDB, React / Next.js.</p>
         <p><strong>Also:</strong> C#, Java, JavaScript, TypeScript, Python, SQL, Spring Boot, Angular, MongoDB, MySQL, Docker, Azure, Git and GitHub Actions.</p>
       </section>
 

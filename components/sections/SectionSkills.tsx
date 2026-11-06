@@ -1,15 +1,16 @@
 import { SectionHead } from "@/components/ui/SectionHead";
 
 const CORE = [
-  { k: "Frontend", v: "React / Next.js" },
-  { k: "Backend", v: "Node.js / Express" },
+  { k: "Backend", v: "Java / Spring Boot" },
   { k: "Backend", v: "ASP.NET Core" },
-  { k: "Database", v: "SQL Server" },
+  { k: "Backend", v: "Node.js / Express" },
+  { k: "Data", v: "SQL Server + MongoDB" },
+  { k: "Frontend", v: "React / Next.js" },
 ];
 
 const GROUPS = [
   { label: "Languages", items: ["C#", "Java", "JavaScript", "TypeScript", "Python", "SQL"] },
-  { label: "Backend", items: ["ASP.NET Core", "EF Core", "Node.js", "Express", "Spring Boot"] },
+  { label: "Backend", items: ["Java", "Spring Boot", "ASP.NET Core", "EF Core", "Node.js", "Express"] },
   { label: "Frontend", items: ["React", "Next.js", "Angular", "Tailwind CSS"] },
   { label: "Data", items: ["MS SQL Server", "MySQL", "MongoDB"] },
   { label: "Cloud and tooling", items: ["Azure", "Docker", "Git", "GitHub Actions"] },

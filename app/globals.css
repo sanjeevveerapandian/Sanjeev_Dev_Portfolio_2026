@@ -657,7 +657,7 @@ kbd {
   background: var(--canvas); border: 2px solid var(--accent);
 }
 .role:first-child::before { background: var(--accent); }
-@media (min-width: 640px) { .timeline { padding-left: 32px; } .role::before { left: -32px; } .timeline::before { left: 5px; } }
+@media (min-width: 640px) { .timeline { padding-left: 32px; } .role::before { left: -32px; } .timeline::before { left: 5px; } .rail-fill { left: 4px; } }
 
 /* Keep the hero copy still while the terminal output grows */
 @media (min-width: 1024px) { .hero-grid { align-items: start; } .hero-grid > :first-child { padding-top: 28px; } }
@@ -696,3 +696,74 @@ kbd {
   .resume-item, .resume-sec h2 { break-inside: avoid; }
   @page { margin: 14mm; }
 }
+
+/* ───────── Project explorer ───────── */
+.explorer { position: relative; display: grid; gap: 12px; margin-top: 16px; }
+@media (min-width: 900px) { .explorer { grid-template-columns: 230px 1fr; gap: 16px; align-items: start; } }
+.pj-radio { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.pj-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+@media (min-width: 900px) { .pj-list { grid-template-columns: 1fr; position: sticky; top: 76px; } }
+.pj-tab {
+  display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 14px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--bdr); background: var(--surface); color: var(--ink-2); touch-action: manipulation;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+@media (hover: hover) { .pj-tab:hover { border-color: var(--bdr-strong); color: var(--ink-1); } }
+.pj-tab-num { font-family: var(--font-mono), monospace; font-size: 11.5px; color: var(--ink-3); }
+.pj-tab-name { font-size: 14.5px; font-weight: 500; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.pj-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); flex: none; }
+.pj-dot[data-status="live"] { background: var(--ok); }
+.pj-dot[data-status="shipped"] { background: var(--accent); }
+.pj-panels { display: grid; padding: clamp(16px, 2.5vw, 26px); min-width: 0; }
+.pj-panel {
+  display: none; gap: 22px; align-content: start; min-width: 0;
+}
+@media (min-width: 1100px) { .pj-panel--diagram { grid-template-columns: 1.1fr 0.9fr; gap: 32px; } }
+.pj-title { font-weight: 600; font-size: var(--step-2); line-height: 1.15; letter-spacing: -0.015em; }
+.pj-facts { display: grid; gap: 16px; margin-top: 18px; }
+.pj-facts dt { font-family: var(--font-mono), monospace; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.pj-facts dd { font-size: var(--step-0); line-height: 1.6; color: var(--ink-2); }
+@media (min-width: 640px) { .pj-panel:not(.pj-panel--diagram) .pj-facts { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
+#pj-0:checked ~ .pj-list label[for="pj-0"] { background: var(--accent-dim); border-color: var(--accent); color: var(--ink-1); }
+#pj-0:checked ~ .pj-list label[for="pj-0"] .pj-tab-num { color: var(--accent); }
+#pj-0:checked ~ .pj-panels #pj-panel-0 { display: grid; animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+#pj-0:focus-visible ~ .pj-list label[for="pj-0"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pj-1:checked ~ .pj-list label[for="pj-1"] { background: var(--accent-dim); border-color: var(--accent); color: var(--ink-1); }
+#pj-1:checked ~ .pj-list label[for="pj-1"] .pj-tab-num { color: var(--accent); }
+#pj-1:checked ~ .pj-panels #pj-panel-1 { display: grid; animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+#pj-1:focus-visible ~ .pj-list label[for="pj-1"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pj-2:checked ~ .pj-list label[for="pj-2"] { background: var(--accent-dim); border-color: var(--accent); color: var(--ink-1); }
+#pj-2:checked ~ .pj-list label[for="pj-2"] .pj-tab-num { color: var(--accent); }
+#pj-2:checked ~ .pj-panels #pj-panel-2 { display: grid; animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+#pj-2:focus-visible ~ .pj-list label[for="pj-2"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pj-3:checked ~ .pj-list label[for="pj-3"] { background: var(--accent-dim); border-color: var(--accent); color: var(--ink-1); }
+#pj-3:checked ~ .pj-list label[for="pj-3"] .pj-tab-num { color: var(--accent); }
+#pj-3:checked ~ .pj-panels #pj-panel-3 { display: grid; animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+#pj-3:focus-visible ~ .pj-list label[for="pj-3"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pj-4:checked ~ .pj-list label[for="pj-4"] { background: var(--accent-dim); border-color: var(--accent); color: var(--ink-1); }
+#pj-4:checked ~ .pj-list label[for="pj-4"] .pj-tab-num { color: var(--accent); }
+#pj-4:checked ~ .pj-panels #pj-panel-4 { display: grid; animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+#pj-4:focus-visible ~ .pj-list label[for="pj-4"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+#pj-5:checked ~ .pj-list label[for="pj-5"] { background: var(--accent-dim); border-color: var(--accent); color: var(--ink-1); }
+#pj-5:checked ~ .pj-list label[for="pj-5"] .pj-tab-num { color: var(--accent); }
+#pj-5:checked ~ .pj-panels #pj-panel-5 { display: grid; animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+#pj-5:focus-visible ~ .pj-list label[for="pj-5"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ───────── Terminal spacing, hero stack, timeline progress ───────── */
+.t-quick { margin-top: 10px; }
+.t-form { margin-bottom: 2px; }
+.hero-stack { display: grid; gap: 10px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--bdr); }
+.hero-stack div { display: grid; gap: 6px; }
+@media (min-width: 520px) { .hero-stack div { grid-template-columns: 78px 1fr; align-items: center; } }
+.hero-stack dt { font-family: var(--font-mono), monospace; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+.hero-stack dd { display: flex; flex-wrap: wrap; gap: 6px; }
+@media (min-width: 900px) { .core { grid-template-columns: repeat(5, 1fr); } }
+
+.rail-fill {
+  position: absolute; left: 4px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px;
+  background: var(--accent); transform-origin: top; transform: scaleY(0); will-change: transform; box-shadow: 0 0 10px var(--accent-glow);
+}
+.role { transition: border-color 0.3s; }
+.role[data-passed="true"]::before { background: var(--accent); }
+.role[data-active="true"] { border-color: var(--accent); }
+.role[data-active="true"]::before { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-dim); }

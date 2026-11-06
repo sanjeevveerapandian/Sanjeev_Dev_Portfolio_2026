@@ -83,7 +83,7 @@ export default function SectionHero() {
               <span className="line"><span>Veerapandian</span></span>
             </h1>
             <p className="hero-pitch fade-in d1">
-              Full-stack engineer. I build <strong>APIs</strong> and the <strong>interfaces</strong> on top of them with React, Node.js, ASP.NET Core and SQL Server.
+              Full-stack engineer. I build <strong>APIs</strong> and the <strong>interfaces</strong> on top of them. Java and Spring Boot, ASP.NET Core and Node.js on the back end, React on the front.
             </p>
             <p className="hero-meta fade-in d2">Chennai, India. B.E. Computer Science, Anna University, 2022 to 2026.</p>
             <p className="hero-tip fade-in d2" aria-hidden="true">Tip: press <kbd>Ctrl</kbd> <kbd>K</kbd> for the command menu, or type <kbd>help</kbd> in the terminal.</p>
@@ -97,6 +97,11 @@ export default function SectionHero() {
                 Resume <ArrowDown size={16} aria-hidden />
               </a>
             </div>
+            <dl className="hero-stack fade-in d3">
+              <div><dt>Backend</dt><dd><span className="chip chip--accent">Java</span><span className="chip chip--accent">Spring Boot</span><span className="chip chip--accent">ASP.NET Core</span><span className="chip">Node.js</span></dd></div>
+              <div><dt>Data</dt><dd><span className="chip chip--accent">SQL Server</span><span className="chip chip--accent">MongoDB</span><span className="chip">MySQL</span></dd></div>
+              <div><dt>Frontend</dt><dd><span className="chip">React</span><span className="chip">Next.js</span><span className="chip">TypeScript</span></dd></div>
+            </dl>
           </div>
 
           <figure className="term fade-in d2" aria-label="Recent work log">

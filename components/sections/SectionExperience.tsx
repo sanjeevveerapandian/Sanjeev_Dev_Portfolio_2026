@@ -1,4 +1,5 @@
 import { SectionHead } from "@/components/ui/SectionHead";
+import { TimelineRail } from "@/components/ui/TimelineRail";
 
 /* Facts only. Company links are left out until confirmed. TODO(sanjeev): company URLs. */
 const EXP = [
@@ -41,7 +42,7 @@ export default function SectionExperience() {
     <section id="experience" className="section">
       <div className="wrap">
         <SectionHead index="03" label="Experience" title={<>Three roles, <em>real traffic</em>.</>} />
-        <div className="timeline">
+        <TimelineRail>
           {EXP.map((e) => (
             <article key={e.company} className="card role rise">
               <div>
@@ -57,7 +58,7 @@ export default function SectionExperience() {
               </div>
             </article>
           ))}
-        </div>
+        </TimelineRail>
       </div>
     </section>
   );
