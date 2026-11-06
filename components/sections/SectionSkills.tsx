@@ -1,83 +1,41 @@
-"use client";
-import dynamic from "next/dynamic";
-import { useReveal } from "@/hooks/useReveal";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SectionHead } from "@/components/ui/SectionHead";
 
-const Marquee = dynamic(() => import("react-fast-marquee").then((m) => m.default), {
-  ssr: false,
-  loading: () => <div className="h-10 w-full" aria-hidden />,
-});
-
-const CATS = [
-  { label:"Languages",     items:["C#","Java","JavaScript","TypeScript","Python","PHP","SQL"] },
-  { label:"Backend",       items:["ASP.NET Core","Entity Framework Core","Node.js / Express","Spring Boot","Laravel","FastAPI","REST API Design","JWT / RBAC"] },
-  { label:"Frontend",      items:["React.js","Next.js","Angular","React Native","Tailwind CSS","HTML5 / CSS3"] },
-  { label:"Databases",     items:["MS SQL Server","MySQL","MongoDB","Firebase Firestore"] },
-  { label:"Cloud & DevOps",items:["Azure","Docker","Git / GitHub","GitHub Actions","Postman","Linux"] },
-  { label:"Concepts",      items:["DSA","System Design","Clean Architecture","SOLID","Agile / Scrum","Unit & Integration Testing"] },
+const CORE = [
+  { k: "Frontend", v: "React / Next.js" },
+  { k: "Backend", v: "Node.js / Express" },
+  { k: "Backend", v: "ASP.NET Core" },
+  { k: "Database", v: "SQL Server" },
 ];
 
-const MARQUEE = ["React.js","Next.js","TypeScript","ASP.NET Core","C#","Node.js","Express","Java","Spring Boot","Angular","MS SQL Server","MySQL","MongoDB","Docker","Azure","Git","Python","Laravel","Tailwind CSS","Firebase","REST APIs","JWT Auth","Clean Architecture","System Design"];
+const GROUPS = [
+  { label: "Languages", items: ["C#", "Java", "JavaScript", "TypeScript", "Python", "SQL", "PHP"] },
+  { label: "Backend", items: ["ASP.NET Core", "EF Core", "Node.js", "Express", "Spring Boot", "Laravel", "FastAPI"] },
+  { label: "Frontend", items: ["React", "Next.js", "Angular", "Tailwind CSS", "Flutter"] },
+  { label: "Data", items: ["MS SQL Server", "MySQL", "MongoDB", "Firebase"] },
+  { label: "Cloud and tooling", items: ["Azure", "Docker", "Git", "GitHub Actions", "Postman"] },
+  { label: "Practices", items: ["Clean Architecture", "SOLID", "JWT / RBAC", "REST API design", "Agile"] },
+];
 
 export default function SectionSkills() {
-  const ref = useReveal<HTMLElement>();
   return (
-    <section id="skills" ref={ref} className="section-stack reveal">
-      <SectionLabel>Skills</SectionLabel>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "var(--bdr)", borderRadius: 12, overflow: "hidden", border: "1px solid var(--bdr)", marginBottom: 24 }} className="max-sm:grid-cols-1 max-md:grid-cols-2">
-        {CATS.map((cat) => (
-          <div
-            key={cat.label}
-            className="bg-surface p-4 transition-colors duration-200 sm:p-[22px]"
-            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--elevated)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "var(--surface)"; }}
-          >
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: 9, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--ink-3)", marginBottom: 14 }}>
-              {cat.label}
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {cat.items.map((item) => (
-                <span
-                  key={item}
-                  style={{
-                    fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 500,
-                    padding: "4px 10px", borderRadius: 9999,
-                    border: "1px solid var(--bdr)", color: "var(--ink-2)", background: "var(--canvas)",
-                    cursor: "default", transition: "border-color 0.2s, color 0.2s",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; e.currentTarget.style.color = "var(--blue)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--bdr)"; e.currentTarget.style.color = "var(--ink-2)"; }}
-                >{item}</span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div style={{ position: "relative", overflow: "hidden" }} aria-hidden>
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 sm:w-14 md:w-20"
-          style={{ background: "linear-gradient(to right, var(--canvas), transparent)" }}
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 sm:w-14 md:w-20"
-          style={{ background: "linear-gradient(to left, var(--canvas), transparent)" }}
-        />
-        <Marquee gradient={false} speed={32} pauseOnHover className="py-1">
-          {MARQUEE.map((s) => (
-            <span key={s} style={{
-              margin: "0 8px", fontFamily: "var(--font-mono)", fontSize: 10, fontWeight: 500,
-              letterSpacing: "0.08em", textTransform: "uppercase",
-              color: "var(--ink-3)", border: "1px solid var(--bdr)",
-              padding: "6px 14px", borderRadius: 9999, background: "var(--surface)",
-              cursor: "default", transition: "border-color 0.2s, color 0.2s", whiteSpace: "nowrap",
-            }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--blue)"; e.currentTarget.style.color = "var(--blue)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--bdr)"; e.currentTarget.style.color = "var(--ink-3)"; }}
-            >{s}</span>
+    <section id="skills" className="section">
+      <div className="wrap">
+        <SectionHead index="05" label="Skills" title={<>The <em>core stack</em>, then the rest.</>} />
+        <ul className="core rise">
+          {CORE.map((c) => (
+            <li key={c.v}><div><span>{c.k}</span>{c.v}</div></li>
           ))}
-        </Marquee>
+        </ul>
+        <div className="skill-grid">
+          {GROUPS.map((g) => (
+            <div key={g.label} className="card rise">
+              <h3>{g.label}</h3>
+              <ul className="chip-row">
+                {g.items.map((i) => <li key={i} className="chip">{i}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
