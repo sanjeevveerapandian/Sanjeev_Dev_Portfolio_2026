@@ -1,178 +1,119 @@
 "use client";
-import { useState, useEffect } from "react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { RESUME_URL } from "@/lib/constants";
 
+const SECTION_IDS = ["hero", "about", "experience", "projects", "skills", "contact"] as const;
+
 const NAV_LINKS = [
-  { label: "About",       id: "about" },
-  { label: "Experience",  id: "experience" },
-  { label: "Projects",    id: "projects" },
-  { label: "Skills",      id: "skills" },
-  { label: "Contact",     id: "contact" },
+  { label: "About", id: "about" },
+  { label: "Experience", id: "experience" },
+  { label: "Projects", id: "projects" },
+  { label: "Skills", id: "skills" },
+  { label: "Contact", id: "contact" },
 ];
 
-export default function Navbar({ active }: { active: string }) {
+export default function Navbar() {
+  const active = useScrollSpy(SECTION_IDS);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        burgerRef.current?.focus();
+      }
+      if (e.key === "Tab") {
+        const nodes = [
+          burgerRef.current,
+          ...Array.from(menuRef.current?.querySelectorAll<HTMLElement>("button, a") ?? []),
+        ].filter(Boolean) as HTMLElement[];
+        if (!nodes.length) return;
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+        const cur = document.activeElement;
+        if (e.shiftKey && cur === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && cur === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    const onResize = () => { if (window.innerWidth >= 820) setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open]);
 
-  const scrollTo = (id: string) => {
+  const go = (id: string) => {
+    setOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMobileOpen(false);
   };
 
   return (
-    <header
-      style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-        transition: "all 0.3s",
-        paddingTop: "env(safe-area-inset-top)",
-        background: scrolled ? "var(--nav-scrim)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
-        borderBottom: scrolled ? "1px solid var(--bdr)" : "1px solid transparent",
-      }}
-    >
-      <div
-        className="mx-auto flex h-[54px] max-w-[1180px] items-center justify-between gap-3 px-4 sm:h-[62px] sm:px-6 md:px-8"
-      >
-        <button
-          type="button"
-          onClick={() => scrollTo("hero")}
-          style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-display)", fontSize: 19, color: "var(--ink-1)", letterSpacing: "-0.02em" }}
-          className="min-w-0 shrink-0 touch-manipulation sm:text-xl"
-        >
-          SV<span style={{ color: "var(--blue)", fontStyle: "italic" }}>.</span>
-        </button>
+    <>
+    <header className="nav" data-scrolled={scrolled || open ? "true" : "false"}>
+      <div className="wrap nav-inner">
+        <a href="#hero" className="nav-logo" aria-label="Sanjeev Veerapandian, back to top" onClick={(e) => { e.preventDefault(); go("hero"); }}>
+          SV<span>.</span>
+        </a>
 
-        <nav aria-label="Primary" style={{ alignItems: "center", gap: 2 }} className="hidden md:flex">
-          {NAV_LINKS.map(({ label, id }) => {
-            const isActive = active === id;
-            return (
-              <button
-                key={id}
-                type="button"
-                onClick={() => scrollTo(id)}
-                style={{
-                  background: "none", border: "none", cursor: "pointer",
-                  fontFamily: "var(--font-body)", fontSize: 13, fontWeight: isActive ? 500 : 400,
-                  color: isActive ? "var(--blue)" : "var(--ink-2)",
-                  padding: "6px 14px", borderRadius: 6,
-                  transition: "color 0.2s, background 0.2s",
-                  position: "relative",
-                }}
-                onMouseEnter={(e) => { if (!isActive) { e.currentTarget.style.color = "var(--ink-1)"; e.currentTarget.style.background = "var(--surface)"; } }}
-                onMouseLeave={(e) => { if (!isActive) { e.currentTarget.style.color = "var(--ink-2)"; e.currentTarget.style.background = "none"; } }}
-              >
-                {label}
-                {isActive && (
-                  <span style={{
-                    position: "absolute", bottom: 1, left: "50%", transform: "translateX(-50%)",
-                    width: 16, height: 2, borderRadius: 2, background: "var(--blue)", display: "block",
-                  }} />
-                )}
-              </button>
-            );
-          })}
+        <nav aria-label="Primary" className="nav-links">
+          {NAV_LINKS.map(({ label, id }) => (
+            <a key={id} href={`#${id}`} className="nav-link" aria-current={active === id ? "true" : undefined} onClick={(e) => { e.preventDefault(); go(id); }}>
+              {label}
+            </a>
+          ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
+        <div className="nav-tools">
           <ThemeToggle />
-          <a
-            href={RESUME_URL}
-            target="_blank" rel="noopener noreferrer"
-            className="hidden md:inline-flex"
-            style={{
-              alignItems: "center", gap: 6,
-              background: "var(--blue)", color: "#fff",
-              fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 500,
-              padding: "7px 16px", borderRadius: 6,
-              transition: "opacity 0.2s", textDecoration: "none",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.85"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
-          >
+          <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--sm nav-resume">
             Resume ↗
           </a>
           <button
+            ref={burgerRef}
             type="button"
-            className="flex touch-manipulation h-11 w-11 items-center justify-center md:hidden"
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            style={{
-              background: "var(--surface)", border: "1px solid var(--bdr-strong)",
-              borderRadius: 8,
-              cursor: "pointer", color: "var(--ink-2)",
-            }}
+            className="icon-btn nav-burger"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
           >
-            {mobileOpen ? <X size={20} strokeWidth={1.75} /> : <Menu size={20} strokeWidth={1.75} />}
+            {open ? <X size={20} strokeWidth={1.8} aria-hidden /> : <Menu size={20} strokeWidth={1.8} aria-hidden />}
           </button>
         </div>
       </div>
-
-      {mobileOpen && (
-        <>
-          <button
-            type="button"
-            aria-label="Close menu"
-            className="fixed bottom-0 left-0 right-0 top-[calc(54px+env(safe-area-inset-top))] z-[48] bg-black/45 backdrop-blur-sm sm:top-[calc(62px+env(safe-area-inset-top))] md:hidden dark:bg-black/55"
-            onClick={() => setMobileOpen(false)}
-          />
-          <div
-            className="fixed left-0 right-0 top-[calc(54px+env(safe-area-inset-top))] z-[49] max-h-[min(70vh,calc(100dvh-54px-env(safe-area-inset-top)))] overflow-y-auto pb-[env(safe-area-inset-bottom)] shadow-lg sm:top-[calc(62px+env(safe-area-inset-top))] sm:max-h-[min(75vh,calc(100dvh-62px-env(safe-area-inset-top)))] md:hidden"
-            style={{
-              borderBottom: "1px solid var(--bdr)",
-              backgroundColor: "var(--canvas)",
-            }}
-          >
-            <div className="px-4 pb-5 pt-2 sm:px-6">
-              {NAV_LINKS.map(({ label, id }) => {
-                const isActive = active === id;
-                return (
-                  <button
-                    key={id}
-                    type="button"
-                    onClick={() => scrollTo(id)}
-                    className="touch-manipulation min-h-[48px] w-full border-b border-[color:var(--bdr)] py-3.5 text-left font-body text-[15px] transition-colors last:border-b-0"
-                    style={{
-                      color: isActive ? "var(--blue)" : "var(--ink-2)",
-                      fontWeight: isActive ? 600 : 400,
-                      background: "none",
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderTop: "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
-              <a
-                href={RESUME_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 flex h-11 w-full touch-manipulation items-center justify-center rounded-lg font-body text-[13px] font-medium text-white"
-                style={{ background: "var(--blue)", textDecoration: "none" }}
-                onClick={() => setMobileOpen(false)}
-              >
-                Resume ↗
-              </a>
-            </div>
-          </div>
-        </>
-      )}
     </header>
+
+      {open && (
+        <div id="mobile-menu" ref={menuRef} className="mobile-menu">
+          {NAV_LINKS.map(({ label, id }, i) => (
+            <button key={id} type="button" className="mobile-link" aria-current={active === id ? "true" : undefined} onClick={() => go(id)}>
+              {label}
+              <span>0{i + 2}</span>
+            </button>
+          ))}
+          <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary" style={{ marginTop: 24, width: "100%" }} onClick={() => setOpen(false)}>
+            Resume ↗
+          </a>
+        </div>
+      )}
+    </>
   );
 }

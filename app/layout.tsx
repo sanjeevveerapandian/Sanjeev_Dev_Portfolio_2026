@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Hanken_Grotesk, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { SITE_URL } from "@/lib/constants";
 
 const fontDisplay = Instrument_Serif({
   subsets: ["latin"],
@@ -9,10 +10,9 @@ const fontDisplay = Instrument_Serif({
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
-  adjustFontFallback: false,
 });
 
-const fontBody = DM_Sans({
+const fontBody = Hanken_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-body",
@@ -28,45 +28,43 @@ const fontMono = JetBrains_Mono({
 
 export const viewport: Viewport = {
   viewportFit: "cover",
-  /* Default matches primary (light) theme */
-  themeColor: [
-    { color: "#FAF9F6" },
-    { media: "(prefers-color-scheme: dark)", color: "#030201" },
-  ],
+  themeColor: "#0a0908",
 };
 
+const TITLE = "Sanjeev Veerapandian | Full-Stack Engineer";
+const DESCRIPTION =
+  "Full-stack engineer in Chennai, open to SDE-1 and Full-Stack roles. React, Node.js, ASP.NET Core and SQL Server. Two merged open source PRs and a live production site.";
+
 export const metadata: Metadata = {
-  title: "Sanjeev Veerapandian — Full-Stack Engineer",
-  description: "Full-stack software engineer (B.E. CSE, 2026) building production systems with React, Node.js, ASP.NET Core and SQL. Based in Chennai, India.",
-  keywords: ["Full Stack Developer", "MERN", "React", "Node.js", ".NET", "Chennai", "Sanjeev Veerapandian"],
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: ["Full Stack Developer", "SDE-1", "React", "Next.js", "Node.js", "ASP.NET Core", "Chennai", "Sanjeev Veerapandian"],
   authors: [{ name: "Sanjeev Veerapandian" }],
   openGraph: {
-    title: "Sanjeev Veerapandian — Full-Stack Engineer",
-    description: "Full-Stack Engineer · React, Node.js, ASP.NET Core, SQL · Chennai, India",
+    title: TITLE,
+    description: DESCRIPTION,
     type: "website",
     locale: "en_IN",
+    siteName: "Sanjeev Veerapandian",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sanjeev Veerapandian — Full-Stack Engineer",
-    description: "Full-Stack Engineer · React, Node.js, ASP.NET Core, SQL · Chennai, India",
+    title: TITLE,
+    description: DESCRIPTION,
   },
   robots: { index: true, follow: true },
-
-  icons: {
-    icon: '/icon.png',
-  },
 };
 
-/* Sync localStorage → <html class> before paint — default light unless stored value is dark */
-const THEME_STORAGE_SCRIPT = `(function(){try{var k='sv-portfolio-theme-v2';var t=localStorage.getItem(k);var r=document.documentElement;if(t==='dark'){r.classList.remove('light');r.classList.add('dark');}else{r.classList.remove('dark');r.classList.add('light');}}catch(e){}})();`;
+/* Dark unless the visitor explicitly chose light with the toggle. Runs before first paint. */
+const THEME_STORAGE_SCRIPT = `(function(){var r=document.documentElement;try{if(localStorage.getItem('sv-portfolio-theme-v2')==='light'){r.classList.remove('dark');r.classList.add('light');return;}}catch(e){}r.classList.remove('light');r.classList.add('dark');})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
+      className={`dark ${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_STORAGE_SCRIPT }} />
@@ -77,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           themes={["light", "dark"]}
           enableSystem={false}
           enableColorScheme={false}
