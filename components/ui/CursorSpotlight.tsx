@@ -1,40 +1,40 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
+/** Desktop-only soft light that follows the cursor. Moves with transform only. */
 export function CursorSpotlight() {
   const ref = useRef<HTMLDivElement>(null);
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(pointer: fine)");
-    const sync = () => setEnabled(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !enabled) return;
+    if (!el) return;
+    const fine = window.matchMedia("(pointer: fine) and (hover: hover)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!fine.matches || calm.matches) return;
 
     let raf = 0;
-    const move = (e: MouseEvent) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        if (el) {
-          el.style.background = `radial-gradient(800px circle at ${e.clientX}px ${e.clientY}px, var(--glow-color) 0%, transparent 65%)`;
-        }
-      });
+    let x = 0;
+    let y = 0;
+    const paint = () => {
+      raf = 0;
+      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
+    const move = (e: PointerEvent) => {
+      x = e.clientX;
+      y = e.clientY;
+      el.dataset.on = "true";
+      if (!raf) raf = requestAnimationFrame(paint);
+    };
+    const leave = () => { el.dataset.on = "false"; };
 
-    window.addEventListener("mousemove", move, { passive: true });
+    window.addEventListener("pointermove", move, { passive: true });
+    document.documentElement.addEventListener("pointerleave", leave);
     return () => {
-      window.removeEventListener("mousemove", move);
-      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", move);
+      document.documentElement.removeEventListener("pointerleave", leave);
+      if (raf) cancelAnimationFrame(raf);
     };
-  }, [enabled]);
-
-  if (!enabled) return null;
+  }, []);
 
   return <div ref={ref} id="cursor-spotlight" aria-hidden="true" />;
 }
