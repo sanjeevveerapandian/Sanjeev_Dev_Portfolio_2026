@@ -9,7 +9,7 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning style={{ margin: 0, fontFamily: "system-ui,sans-serif", background: "#0a0908", color: "#fffbf5", minHeight: "100dvh" }}>
+      <body suppressHydrationWarning style={{ margin: 0, fontFamily: "system-ui,sans-serif", background: "#0b0f14", color: "#e8edf3", minHeight: "100dvh" }}>
         <div style={{ margin: "2rem auto", maxWidth: 480, padding: 24 }}>
           <h1 style={{ fontSize: "1.25rem", marginBottom: 12 }}>Something went wrong</h1>
           <p style={{ opacity: 0.85, marginBottom: 20, fontSize: 14 }}>{error.message}</p>
@@ -20,7 +20,7 @@ export default function GlobalError({
               padding: "10px 18px",
               borderRadius: 8,
               border: "none",
-              background: "#f59e0b",
+              background: "#7aa2ff",
               color: "#111",
               fontWeight: 600,
               cursor: "pointer",

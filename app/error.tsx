@@ -30,7 +30,7 @@ export default function Error({
           padding: "10px 18px",
           borderRadius: 8,
           border: "none",
-          background: "var(--accent, #f5a524)",
+          background: "var(--accent, #7aa2ff)",
           color: "#111",
           fontWeight: 600,
           cursor: "pointer",

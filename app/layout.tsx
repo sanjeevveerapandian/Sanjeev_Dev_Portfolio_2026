@@ -1,20 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Hanken_Grotesk, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { SITE_URL } from "@/lib/constants";
 
-const fontDisplay = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-display",
-  display: "swap",
-});
-
 const fontBody = Hanken_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
@@ -28,7 +20,7 @@ const fontMono = JetBrains_Mono({
 
 export const viewport: Viewport = {
   viewportFit: "cover",
-  themeColor: "#0a0908",
+  themeColor: "#0b0f14",
 };
 
 const TITLE = "Sanjeev Veerapandian | Full-Stack Engineer";
@@ -64,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`dark ${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
+      className={`dark ${fontBody.variable} ${fontMono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_STORAGE_SCRIPT }} />
