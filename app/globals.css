@@ -661,3 +661,38 @@ kbd {
 
 /* Keep the hero copy still while the terminal output grows */
 @media (min-width: 1024px) { .hero-grid { align-items: start; } .hero-grid > :first-child { padding-top: 28px; } }
+
+.more-head { margin: clamp(1.5rem, 3vw, 2rem) 0 12px; font-family: var(--font-mono), monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.minis { margin-top: 0; }
+
+/* Resume page */
+.resume { max-width: 820px; padding-block: calc(24px + env(safe-area-inset-top)) 56px; position: relative; z-index: 1; }
+.resume-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-bottom: 28px; }
+.resume-head h1 { font-size: var(--step-3); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.resume-head p { margin-top: 6px; color: var(--ink-2); }
+.resume-contact { font-size: var(--step--1); }
+.resume a:not(.btn) { border-bottom: 1px solid var(--accent-glow); }
+.resume-sec { margin-top: 28px; }
+.resume-sec h2 { font-family: var(--font-mono), monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--bdr); }
+.resume-item { margin-bottom: 16px; }
+.resume-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 16px; }
+.resume-row span { font-family: var(--font-mono), monospace; font-size: 12.5px; color: var(--ink-3); }
+.resume-role { color: var(--ink-2); font-size: var(--step--1); margin-bottom: 4px; }
+.resume ul { display: grid; gap: 6px; padding-left: 18px; list-style: disc; color: var(--ink-2); font-size: var(--step-0); }
+.resume ul li::marker { color: var(--accent); }
+.resume p { font-size: var(--step-0); }
+.resume-sec p + p { margin-top: 6px; }
+.footer-resume { font-family: var(--font-mono), monospace; font-size: 12px; color: var(--ink-2); border-bottom: 1px solid var(--accent-glow); margin-left: 8px; }
+
+@media print {
+  :root, .light, .dark {
+    --canvas: #fff; --surface: #fff; --elevated: #fff; --ink-1: #000; --ink-2: #222; --ink-3: #444;
+    --accent: #1a3fb0; --bdr: #ccc; --bdr-strong: #999; --accent-glow: #99a;
+  }
+  .no-print, .nav, .progress, #cursor-spotlight, .page-bg, .skip-link { display: none !important; }
+  html, body { background: #fff !important; }
+  .resume { max-width: none; padding: 0; }
+  .resume a:not(.btn) { border-bottom: 0; }
+  .resume-item, .resume-sec h2 { break-inside: avoid; }
+  @page { margin: 14mm; }
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import Navbar from "@/components/ui/Navbar";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
@@ -29,7 +30,7 @@ export default function Home() {
       </main>
       <footer className="footer">
         <div className="wrap footer-in">
-          <p>© 2026 Sanjeev Veerapandian. Built with Next.js.</p>
+          <p>© 2026 Sanjeev Veerapandian. Built with Next.js.<Link href="/resume" className="footer-resume">Resume page</Link></p>
           <div className="footer-links">
             <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Github size={18} aria-hidden /></a>
             <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={18} aria-hidden /></a>

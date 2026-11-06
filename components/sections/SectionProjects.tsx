@@ -1,5 +1,3 @@
-"use client";
-import { useState } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { ArchDiagram, type DiagramLayer } from "@/components/ui/ArchDiagram";
@@ -137,13 +135,6 @@ const PROJECTS: Project[] = [
   },
 ];
 
-const FILTERS: { id: "all" | Tag; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "fullstack", label: "Full-stack" },
-  { id: "ai", label: "AI" },
-  { id: "iot", label: "IoT" },
-];
-
 const OSS = [
   { pr: 42, merged: "Nov 6, 2026", title: "Stop validate and build from archiving and deleting event files" },
   { pr: 40, merged: "Nov 3, 2026", title: "Redeploy the site after the archive workflow commits to main" },
@@ -227,8 +218,6 @@ function Mini({ p, num }: { p: Project; num: string }) {
 }
 
 export default function SectionProjects() {
-  const [filter, setFilter] = useState<"all" | Tag>("all");
-  const visible = (p: Project) => filter === "all" || p.tags.includes(filter);
   const featured = PROJECTS.filter((p) => p.featured);
   const rest = PROJECTS.filter((p) => !p.featured);
   const num = (p: Project) => String(PROJECTS.indexOf(p) + 1).padStart(2, "0");
@@ -240,7 +229,7 @@ export default function SectionProjects() {
           index="04"
           label="Projects"
           title={<>Things I built, and <em>how</em> they work.</>}
-          lede="Open source first, then the projects. Each one says what it does, how it is built and where it stands."
+          lede="Open source first, then two full case studies. The rest are one tap away."
         />
 
         <article className="card oss rise">
@@ -267,20 +256,13 @@ export default function SectionProjects() {
           </ul>
         </article>
 
-        <div className="filters" role="group" aria-label="Filter projects">
-          {FILTERS.map((f) => (
-            <button key={f.id} type="button" className="filter" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
-              {f.label}
-              <span>{f.id === "all" ? PROJECTS.length : PROJECTS.filter((p) => p.tags.includes(f.id as Tag)).length}</span>
-            </button>
-          ))}
+        <div className="cases" style={{ marginTop: 16 }}>
+          {featured.map((p) => <CaseStudy key={p.title} p={p} num={num(p)} />)}
         </div>
 
-        <div className="cases">
-          {featured.filter(visible).map((p) => <CaseStudy key={p.title} p={p} num={num(p)} />)}
-        </div>
+        <h3 className="more-head rise">More projects</h3>
         <div className="minis">
-          {rest.filter(visible).map((p) => <Mini key={p.title} p={p} num={num(p)} />)}
+          {rest.map((p) => <Mini key={p.title} p={p} num={num(p)} />)}
         </div>
 
         <article className="card building rise">

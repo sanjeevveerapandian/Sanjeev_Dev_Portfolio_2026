@@ -8,12 +8,12 @@ const CORE = [
 ];
 
 const GROUPS = [
-  { label: "Languages", items: ["C#", "Java", "JavaScript", "TypeScript", "Python", "SQL", "PHP"] },
-  { label: "Backend", items: ["ASP.NET Core", "EF Core", "Node.js", "Express", "Spring Boot", "Laravel", "FastAPI"] },
-  { label: "Frontend", items: ["React", "Next.js", "Angular", "Tailwind CSS", "Flutter"] },
-  { label: "Data", items: ["MS SQL Server", "MySQL", "MongoDB", "Firebase"] },
-  { label: "Cloud and tooling", items: ["Azure", "Docker", "Git", "GitHub Actions", "Postman"] },
-  { label: "Practices", items: ["Clean Architecture", "SOLID", "JWT / RBAC", "REST API design", "Agile"] },
+  { label: "Languages", items: ["C#", "Java", "JavaScript", "TypeScript", "Python", "SQL"] },
+  { label: "Backend", items: ["ASP.NET Core", "EF Core", "Node.js", "Express", "Spring Boot"] },
+  { label: "Frontend", items: ["React", "Next.js", "Angular", "Tailwind CSS"] },
+  { label: "Data", items: ["MS SQL Server", "MySQL", "MongoDB"] },
+  { label: "Cloud and tooling", items: ["Azure", "Docker", "Git", "GitHub Actions"] },
+  { label: "Practices", items: ["Clean Architecture", "SOLID", "JWT / RBAC", "REST API design"] },
 ];
 
 export default function SectionSkills() {

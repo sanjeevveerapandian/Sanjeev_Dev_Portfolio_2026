@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { EMAIL, GITHUB_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
 
 type Line = { id: number; node: ReactNode };
 
 const SECTIONS = ["about", "experience", "projects", "skills", "contact"];
-const QUICK = ["help", "projects", "contact", "resume"];
+const QUICK = ["whoami", "projects", "contact", "resume"];
 
 const A = (href: string, label: string) => (
   <a href={href} target="_blank" rel="noopener noreferrer">{label}</a>
@@ -45,7 +46,7 @@ export function TerminalPrompt() {
 
     switch (cmd) {
       case "help":
-        push(echo, "help  projects  stack  oss  contact  resume  theme  goto <section>  clear");
+        push(echo, "whoami  now  projects  stack  oss  contact  resume  theme  goto <section>  clear");
         break;
       case "projects":
         push(
@@ -57,6 +58,12 @@ export function TerminalPrompt() {
           "PrepWise            Next.js, Firebase, Vapi AI",
           "MedRush             Pitchathon finalist",
         );
+        break;
+      case "whoami":
+        push(echo, "Sanjeev Veerapandian, full-stack engineer in Chennai.", "B.E. Computer Science, Anna University, 2026.", "Open to SDE-1 and Full-Stack roles.");
+        break;
+      case "now":
+        push(echo, "Building a stock exchange matching engine in Java, phase by phase, with tests.");
         break;
       case "stack":
         push(echo, "React / Next.js, Node.js / Express, ASP.NET Core, SQL Server", "also: C#, Java, TypeScript, Python, MongoDB, Docker, Azure");
@@ -73,7 +80,7 @@ export function TerminalPrompt() {
         push(echo, <>email     <a href={`mailto:${EMAIL}`}>{EMAIL}</a></>, <>linkedin  {A(LINKEDIN_URL, "sanjeev-veerapandian")}</>, <>github    {A(GITHUB_URL, "sanjeevveerapandian")}</>);
         break;
       case "resume":
-        push(echo, <>Resume: {A(RESUME_URL, "open in a new tab")}</>);
+        push(echo, <>Resume: <Link href="/resume">read it here</Link> or {A(RESUME_URL, "open the PDF")}</>);
         break;
       case "theme": {
         const next = args[0] === "light" || args[0] === "dark" ? args[0] : document.documentElement.classList.contains("dark") ? "light" : "dark";

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'export', // Required for GitHub Pages static hosting
+    trailingSlash: true, // /resume/ -> resume/index.html, works on any static host
     images: {
       unoptimized: true, // GitHub Pages doesn't support the default Next.js Image Optimization
     },
