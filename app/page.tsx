@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Linkedin } from "lucide-react";
+import { Code2, Github, Linkedin } from "lucide-react";
 import Navbar from "@/components/ui/Navbar";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { CommandPalette } from "@/components/ui/CommandPalette";
@@ -10,7 +10,7 @@ import SectionExperience from "@/components/sections/SectionExperience";
 import SectionProjects from "@/components/sections/SectionProjects";
 import SectionSkills from "@/components/sections/SectionSkills";
 import SectionContact from "@/components/sections/SectionContact";
-import { GITHUB_URL, LINKEDIN_URL } from "@/lib/constants";
+import { GITHUB_URL, LEETCODE_URL, LINKEDIN_URL } from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -34,6 +34,7 @@ export default function Home() {
           <div className="footer-links">
             <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Github size={18} aria-hidden /></a>
             <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={18} aria-hidden /></a>
+            <a href={LEETCODE_URL} target="_blank" rel="noopener noreferrer" aria-label="LeetCode"><Code2 size={18} aria-hidden /></a>
           </div>
         </div>
       </footer>

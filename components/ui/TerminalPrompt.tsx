@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { EMAIL, GITHUB_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
+import { EMAIL, GITHUB_URL, LEETCODE_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
 
 type Line = { id: number; node: ReactNode };
 
@@ -77,7 +77,7 @@ export function TerminalPrompt() {
         );
         break;
       case "contact":
-        push(echo, <>email     <a href={`mailto:${EMAIL}`}>{EMAIL}</a></>, <>linkedin  {A(LINKEDIN_URL, "sanjeev-veerapandian")}</>, <>github    {A(GITHUB_URL, "sanjeevveerapandian")}</>);
+        push(echo, <>email     <a href={`mailto:${EMAIL}`}>{EMAIL}</a></>, <>linkedin  {A(LINKEDIN_URL, "sanjeev-veerapandian")}</>, <>github    {A(GITHUB_URL, "sanjeevveerapandian")}</>, <>leetcode  {A(LEETCODE_URL, "sanjeevveerapandian")}</>);
         break;
       case "resume":
         push(echo, <>Resume: <Link href="/resume">read it here</Link> or {A(RESUME_URL, "open the PDF")}</>);

@@ -1,7 +1,7 @@
-import { Github, Linkedin } from "lucide-react";
+import { Code2, Github, Linkedin } from "lucide-react";
 import { CopyEmail } from "@/components/ui/CopyEmail";
 import { SectionHead } from "@/components/ui/SectionHead";
-import { EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from "@/lib/constants";
+import { EMAIL, GITHUB_URL, LEETCODE_URL, LINKEDIN_URL, RESUME_URL } from "@/lib/constants";
 
 export default function SectionContact() {
   return (
@@ -18,6 +18,7 @@ export default function SectionContact() {
             <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="btn">Resume ↗</a>
             <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="btn"><Linkedin size={16} aria-hidden /> LinkedIn</a>
             <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="btn"><Github size={16} aria-hidden /> GitHub</a>
+            <a href={LEETCODE_URL} target="_blank" rel="noopener noreferrer" className="btn"><Code2 size={16} aria-hidden /> LeetCode</a>
           </div>
         </div>
       </div>

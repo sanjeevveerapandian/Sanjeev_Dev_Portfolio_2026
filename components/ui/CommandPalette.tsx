@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { RESUME_URL, EMAIL, GITHUB_URL, LINKEDIN_URL } from "@/lib/constants";
+import { RESUME_URL, EMAIL, GITHUB_URL, LEETCODE_URL, LINKEDIN_URL } from "@/lib/constants";
 
 type Item = { id: string; label: string; hint: string; run: () => void };
 
@@ -39,6 +39,7 @@ export function CommandPalette() {
       { id: "resume", label: "Open resume PDF", hint: "Link", run: ext(RESUME_URL) },
       { id: "email", label: "Send an email", hint: "Link", run: () => { window.location.href = `mailto:${EMAIL}`; } },
       { id: "github", label: "GitHub profile", hint: "Link", run: ext(GITHUB_URL) },
+      { id: "leetcode", label: "LeetCode profile", hint: "Link", run: ext(LEETCODE_URL) },
       { id: "linkedin", label: "LinkedIn profile", hint: "Link", run: ext(LINKEDIN_URL) },
     ];
   }, [setTheme, router]);
