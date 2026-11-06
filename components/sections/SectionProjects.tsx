@@ -137,17 +137,37 @@ const PROJECTS: Project[] = [
 
 const BUILDING: Building[] = [
   {
-    title: "PrepWise v2",
-    category: "GenAI · RAG",
+    title: "Stock Exchange Matching Engine",
+    category: "Systems · Trading",
     summary:
-      "Rebuilding PrepWise so the interview engine is mine, not a voice API's. Resume + JD retrieval to tailor questions, an adaptive interviewer that asks follow-ups, rubric scoring backed by transcript evidence, and a labelled eval set. Voice comes last, as an interface.",
-    stack: ["Next.js", "FastAPI", "PostgreSQL + pgvector", "Docker", "GitHub Actions"],
+      "An order-matching engine built phase by phase. Each phase is tested and pushed before the next one starts, so I can explain how every part works.",
+    stack: ["Java", "Unit tests", "Git"],
+  },
+];
+
+type OpenSource = {
+  pr: number;
+  title: string;
+  merged: string;
+  summary: string;
+};
+
+const OSS_REPO = "https://github.com/SapiensCampus/EventSapiens";
+
+const OPEN_SOURCE: OpenSource[] = [
+  {
+    pr: 40,
+    title: "Redeploy the site after the archive workflow commits to main",
+    merged: "Merged Nov 3, 2026",
+    summary:
+      "Found the bug (issue #39): commits made by the archive workflow never triggered a deploy, so the live site went stale. Fixed it by having the workflow trigger the deploy itself.",
   },
   {
-    title: "LedgerFlow",
-    category: "Java · Payments",
-    summary: "A payment processing and ledger service in Java and Spring Boot.",
-    stack: ["Java", "Spring Boot", "REST APIs"],
+    pr: 42,
+    title: "Stop validate and build from archiving and deleting event files",
+    merged: "Merged Nov 6, 2026",
+    summary:
+      "Found the bug (issue #41): running bun run validate or build archived and deleted event files as a side effect. Separated checking from archiving so those commands no longer change data.",
   },
 ];
 
@@ -311,6 +331,42 @@ export default function SectionProjects() {
             />
           );
         })}
+      </div>
+
+      <div className="building-wrap">
+        <p className="building-label">Open source</p>
+        <article className="oss-card">
+          <div className="project-meta">
+            <span className="status-pill" data-status="live">
+              <span className="status-dot" aria-hidden />
+              2 PRs merged
+            </span>
+            <span className="project-cat">TypeScript · React</span>
+          </div>
+          <h3 className="project-title">EventSapiens</h3>
+          <p className="project-tagline">
+            Open-source events site for Tamil Nadu student communities, maintained by SapiensCampus.
+          </p>
+          <ul className="oss-list">
+            {OPEN_SOURCE.map((o) => (
+              <li key={o.pr} className="oss-item">
+                <div className="oss-item-head">
+                  <a href={`${OSS_REPO}/pull/${o.pr}`} target="_blank" rel="noopener noreferrer" className="oss-pr">
+                    #{o.pr}
+                  </a>
+                  <span className="oss-title">{o.title}</span>
+                  <span className="oss-merged">{o.merged}</span>
+                </div>
+                <p className="oss-summary">{o.summary}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="project-links">
+            <a href={OSS_REPO} target="_blank" rel="noopener noreferrer" className="project-link">
+              <Github size={12} aria-hidden /> Repo
+            </a>
+          </div>
+        </article>
       </div>
 
       <div className="building-wrap">

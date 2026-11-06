@@ -425,6 +425,9 @@
 @media (min-width: 768px) {
   .building-grid { grid-template-columns: 1fr 1fr; }
 }
+@media (min-width: 1024px) {
+  .building-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+}
 .building-card {
   position: relative;
   display: flex;
@@ -622,3 +625,33 @@ body::after {
   height: 1px;
   background: var(--blue);
 }
+
+/* Open source */
+.oss-card {
+  position: relative;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--bdr);
+  background: var(--surface);
+  transition: border-color 0.25s;
+}
+@media (min-width: 640px) { .oss-card { padding: 22px 26px; } }
+@media (hover: hover) and (pointer: fine) {
+  .oss-card:hover { border-color: var(--blue); }
+}
+.oss-card .project-links { position: static; padding: 0; margin-top: 16px; }
+.oss-list { list-style: none; display: grid; gap: 1px; margin-top: 18px; background: var(--bdr); border: 1px solid var(--bdr); border-radius: 10px; overflow: hidden; }
+@media (min-width: 768px) { .oss-list { grid-template-columns: 1fr 1fr; } }
+.oss-item { background: var(--canvas); padding: 14px 16px; }
+.oss-item-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-bottom: 6px; }
+.oss-pr {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+}
+.oss-pr:hover { text-decoration: underline; }
+.oss-title { font-family: var(--font-body), system-ui, sans-serif; font-size: 13.5px; font-weight: 500; color: var(--ink-1); }
+.oss-merged { font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; color: var(--ink-3); }
+.oss-summary { font-family: var(--font-body), system-ui, sans-serif; font-size: 13px; line-height: 1.7; color: var(--ink-2); }
