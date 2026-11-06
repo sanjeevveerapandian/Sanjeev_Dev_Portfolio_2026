@@ -1,6 +1,7 @@
 import { Github, Linkedin } from "lucide-react";
 import Navbar from "@/components/ui/Navbar";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { CommandPalette } from "@/components/ui/CommandPalette";
 import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
 import SectionHero from "@/components/sections/SectionHero";
 import SectionAbout from "@/components/sections/SectionAbout";
@@ -17,6 +18,7 @@ export default function Home() {
       <CursorSpotlight />
       <ScrollProgress />
       <Navbar />
+      <CommandPalette />
       <main id="main-content">
         <SectionHero />
         <SectionAbout />

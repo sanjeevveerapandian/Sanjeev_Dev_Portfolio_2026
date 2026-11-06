@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Command, Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { RESUME_URL } from "@/lib/constants";
+import { OPEN_PALETTE_EVENT } from "@/components/ui/CommandPalette";
 
 const SECTION_IDS = ["hero", "about", "experience", "projects", "skills", "contact"] as const;
 
@@ -82,6 +83,9 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-tools">
+          <button type="button" className="icon-btn" aria-label="Open command menu" title="Command menu (Ctrl K)" onClick={() => window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))}>
+            <Command size={18} strokeWidth={1.8} aria-hidden />
+          </button>
           <ThemeToggle />
           <a href={RESUME_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--sm nav-resume">
             Resume ↗

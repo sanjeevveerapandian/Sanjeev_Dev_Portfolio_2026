@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { TerminalPrompt } from "@/components/ui/TerminalPrompt";
 import { LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
 
 /* Every row below traces to the verified facts. */
@@ -85,6 +86,7 @@ export default function SectionHero() {
               Full-stack engineer. I build <strong>APIs</strong> and the <strong>interfaces</strong> on top of them with React, Node.js, ASP.NET Core and SQL Server.
             </p>
             <p className="hero-meta fade-in d2">Chennai, India. B.E. Computer Science, Anna University, 2022 to 2026.</p>
+            <p className="hero-tip fade-in d2" aria-hidden="true">Tip: press <kbd>Ctrl</kbd> <kbd>K</kbd> for the command menu, or type <kbd>help</kbd> in the terminal.</p>
             <div className="hero-cta fade-in d3">
               <Magnetic>
                 <a href="#projects" className="btn btn--primary">
@@ -114,6 +116,7 @@ export default function SectionHero() {
                   </li>
                 ))}
               </ol>
+              <TerminalPrompt />
             </div>
           </figure>
         </div>
