@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 import { RESUME_URL, EMAIL, GITHUB_URL, LEETCODE_URL, LINKEDIN_URL } from "@/lib/constants";
 
 type Item = { id: string; label: string; hint: string; run: () => void };
@@ -14,7 +13,6 @@ export function CommandPalette() {
   const [sel, setSel] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const returnTo = useRef<HTMLElement | null>(null);
-  const { setTheme } = useTheme();
   const router = useRouter();
 
   const close = () => {
@@ -34,7 +32,6 @@ export function CommandPalette() {
       { id: "projects", label: "Projects", hint: "Go to", run: go("projects") },
       { id: "skills", label: "Skills", hint: "Go to", run: go("skills") },
       { id: "contact", label: "Contact", hint: "Go to", run: go("contact") },
-      { id: "theme", label: "Toggle light and dark theme", hint: "Action", run: () => setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark") },
       { id: "resume-page", label: "Read resume page", hint: "Page", run: () => router.push("/resume") },
       { id: "resume", label: "Open resume PDF", hint: "Link", run: ext(RESUME_URL) },
       { id: "email", label: "Send an email", hint: "Link", run: () => { window.location.href = `mailto:${EMAIL}`; } },
@@ -42,7 +39,7 @@ export function CommandPalette() {
       { id: "leetcode", label: "LeetCode profile", hint: "Link", run: ext(LEETCODE_URL) },
       { id: "linkedin", label: "LinkedIn profile", hint: "Link", run: ext(LINKEDIN_URL) },
     ];
-  }, [setTheme, router]);
+  }, [router]);
 
   const shown = items.filter((i) => i.label.toLowerCase().includes(q.toLowerCase()));
 

@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-/* Dark unless the visitor explicitly chose light with the toggle. Runs before first paint. */
-const THEME_STORAGE_SCRIPT = `(function(){var r=document.documentElement;try{if(localStorage.getItem('sv-portfolio-theme-v2')==='light'){r.classList.remove('dark');r.classList.add('light');return;}}catch(e){}r.classList.remove('light');r.classList.add('dark');})();`;
+/* The site is dark only for now. Ignores any saved light choice. To bring the toggle back, restore the localStorage check here and remove forcedTheme below. */
+const THEME_STORAGE_SCRIPT = `(function(){var r=document.documentElement;r.classList.remove('light');r.classList.add('dark');})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -68,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
+          forcedTheme="dark"
           themes={["light", "dark"]}
           enableSystem={false}
           enableColorScheme={false}

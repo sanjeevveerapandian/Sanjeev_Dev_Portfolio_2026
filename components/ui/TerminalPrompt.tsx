@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import { EMAIL, GITHUB_URL, LEETCODE_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
 
 type Line = { id: number; node: ReactNode };
@@ -23,7 +22,6 @@ export function TerminalPrompt() {
   const history = useRef<string[]>([]);
   const cursor = useRef(-1);
   const outRef = useRef<HTMLDivElement>(null);
-  const { setTheme } = useTheme();
 
   useEffect(() => setReady(true), []);
   useEffect(() => {
@@ -46,7 +44,7 @@ export function TerminalPrompt() {
 
     switch (cmd) {
       case "help":
-        push(echo, "whoami  now  projects  stack  oss  contact  resume  theme  goto <section>  clear");
+        push(echo, "whoami  now  projects  stack  oss  contact  resume  goto <section>  clear");
         break;
       case "projects":
         push(
@@ -82,12 +80,6 @@ export function TerminalPrompt() {
       case "resume":
         push(echo, <>Resume: <Link href="/resume">read it here</Link> or {A(RESUME_URL, "open the PDF")}</>);
         break;
-      case "theme": {
-        const next = args[0] === "light" || args[0] === "dark" ? args[0] : document.documentElement.classList.contains("dark") ? "light" : "dark";
-        setTheme(next);
-        push(echo, `theme set to ${next}`);
-        break;
-      }
       case "goto": {
         const target = args[0];
         if (target && SECTIONS.includes(target)) {
