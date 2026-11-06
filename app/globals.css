@@ -496,11 +496,6 @@ main, footer { position: relative; z-index: 1; }
 .role .chip-row { margin-top: 18px; }
 
 /* ───────────────────────── Skills ───────────────────────── */
-.core { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--bdr); border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
-@media (min-width: 900px) { .core { grid-template-columns: repeat(4, 1fr); } }
-.core div { background: var(--surface); padding: 20px 18px; font-family: var(--font-display), serif; font-size: var(--step-1); line-height: 1.2; color: var(--ink-1); min-height: 72px; display: flex; align-items: flex-end; }
-.core div span { display: block; font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-.core div { flex-direction: column; align-items: flex-start; justify-content: flex-end; }
 .skill-grid { display: grid; gap: 14px; }
 @media (min-width: 640px) { .skill-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .skill-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -565,7 +560,7 @@ main, footer { position: relative; z-index: 1; }
 
 /* Compact, calm typography: sans headings at semibold, no italics */
 .sec-title em, .contact h2 em, .nf-code, .nav-logo span { font-style: normal; }
-.oss h3, .case h3, .mini h3, .building h3, .role-co, .contact h2, .nf h1, .stat-big, .ev-num, .mobile-link, .core div, .nav-logo {
+.oss h3, .case h3, .mini h3, .building h3, .role-co, .contact h2, .nf h1, .stat-big, .ev-num, .mobile-link, .nav-logo {
   font-weight: 600; letter-spacing: -0.015em;
 }
 .contact h2 { font-size: var(--step-3); line-height: 1.1; }
@@ -757,7 +752,6 @@ kbd {
 @media (min-width: 520px) { .hero-stack div { grid-template-columns: 78px 1fr; align-items: center; } }
 .hero-stack dt { font-family: var(--font-mono), monospace; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 .hero-stack dd { display: flex; flex-wrap: wrap; gap: 6px; }
-@media (min-width: 900px) { .core { grid-template-columns: repeat(5, 1fr); } }
 
 .rail-fill {
   position: absolute; left: 4px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px;
@@ -767,3 +761,11 @@ kbd {
 .role[data-passed="true"]::before { background: var(--accent); }
 .role[data-active="true"] { border-color: var(--accent); }
 .role[data-active="true"]::before { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-dim); }
+
+/* Core stack: one title per group, items listed under it */
+.core { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--bdr); border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+@media (min-width: 900px) { .core { grid-template-columns: 4.4fr 2fr 1.4fr; } }
+.core-group { background: var(--surface); padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.core-group h3 { font-family: var(--font-mono), monospace; font-weight: 500; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.core-group ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 16px; }
+.core-group li { font-size: var(--step-1); font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; color: var(--ink-1); }

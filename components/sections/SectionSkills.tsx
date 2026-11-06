@@ -1,11 +1,9 @@
 import { SectionHead } from "@/components/ui/SectionHead";
 
 const CORE = [
-  { k: "Backend", v: "Java / Spring Boot" },
-  { k: "Backend", v: "ASP.NET Core" },
-  { k: "Backend", v: "Node.js / Express" },
-  { k: "Data", v: "SQL Server + MongoDB" },
-  { k: "Frontend", v: "React / Next.js" },
+  { title: "Backend", items: ["Java / Spring Boot", "ASP.NET Core", "Node.js / Express"] },
+  { title: "Data", items: ["SQL Server", "MongoDB"] },
+  { title: "Frontend", items: ["React / Next.js"] },
 ];
 
 const GROUPS = [
@@ -22,11 +20,16 @@ export default function SectionSkills() {
     <section id="skills" className="section">
       <div className="wrap">
         <SectionHead index="05" label="Skills" title={<>The <em>core stack</em>, then the rest.</>} />
-        <ul className="core rise">
+        <div className="core rise">
           {CORE.map((c) => (
-            <li key={c.v}><div><span>{c.k}</span>{c.v}</div></li>
+            <div key={c.title} className="core-group">
+              <h3>{c.title}</h3>
+              <ul>
+                {c.items.map((i) => <li key={i}>{i}</li>)}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
         <div className="skill-grid">
           {GROUPS.map((g) => (
             <div key={g.label} className="card rise">
