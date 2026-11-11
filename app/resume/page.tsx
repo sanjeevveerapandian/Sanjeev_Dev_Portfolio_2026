@@ -61,7 +61,7 @@ export default function ResumePage() {
         <h1>Sanjeev Veerapandian</h1>
         <p>Full-stack engineer. Open to SDE-1 and Full-Stack roles.</p>
         <p className="resume-contact">
-          Chennai, India · <a href={`mailto:${EMAIL}`}>{EMAIL}</a> · <a href={LINKEDIN_URL}>linkedin.com/in/sanjeev-veerapandian-43692a243</a> · <a href={GITHUB_URL}>github.com/sanjeevveerapandian</a>
+          Chennai, India · <a href={`mailto:${EMAIL}`}>{EMAIL}</a> · <a href={LINKEDIN_URL}>linkedin.com/in/sanjeev-veerapandian</a> · <a href={GITHUB_URL}>github.com/sanjeevveerapandian</a>
         </p>
       </header>
 
