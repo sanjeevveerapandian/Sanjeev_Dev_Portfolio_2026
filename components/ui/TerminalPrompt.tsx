@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { EMAIL, GITHUB_URL, LEETCODE_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
+import { EMAIL, ENGINE_LIVE_URL, GITHUB_URL, LEETCODE_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
 
 type Line = { id: number; node: ReactNode };
 
@@ -49,6 +49,7 @@ export function TerminalPrompt() {
       case "projects":
         push(
           echo,
+          <>Matching engine     Java, live, {A(ENGINE_LIVE_URL, "open")}</>,
           "ParkEase            shipped, Aug 2026",
           <>MSS Chennai         live, {A(LIVE_SITE_URL, "msschennai.in")}</>,
           "Medical thesis      PKEST, fuzzy logic, FastAPI",
@@ -61,7 +62,7 @@ export function TerminalPrompt() {
         push(echo, "Sanjeev Veerapandian, full-stack engineer in Chennai.", "B.E. Computer Science, Anna University, 2026.", "Open to SDE-1 and Full-Stack roles.");
         break;
       case "now":
-        push(echo, "Building a stock exchange matching engine in Java, phase by phase, with tests.");
+        push(echo, "Latest: a stock exchange matching engine in Java, now live.", "Open to SDE-1 and Full-Stack roles.");
         break;
       case "stack":
         push(echo, "backend   Java / Spring Boot, ASP.NET Core, Node.js / Express", "data      SQL Server, MongoDB, MySQL", "frontend  React / Next.js, TypeScript", "tools     Docker, Azure, Git, GitHub Actions");

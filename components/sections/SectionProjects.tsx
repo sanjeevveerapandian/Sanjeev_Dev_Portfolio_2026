@@ -1,7 +1,7 @@
 import { ExternalLink, Github } from "lucide-react";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { ArchDiagram, type DiagramLayer } from "@/components/ui/ArchDiagram";
-import { LIVE_SITE_URL, OSS_REPO_URL } from "@/lib/constants";
+import { ENGINE_LIVE_URL, ENGINE_REPO_URL, GITHUB_URL, LIVE_SITE_URL, OSS_REPO_URL } from "@/lib/constants";
 
 type Status = "live" | "shipped" | "prototype" | "research";
 
@@ -21,10 +21,46 @@ type Project = {
   /* TODO(sanjeev): repo URL for this project. Code links stay hidden until a real URL is set. */
   code?: string;
   diagram?: { caption: string; layers: DiagramLayer[] };
+  highlights?: string[];
+  links?: { label: string; href: string }[];
+  note?: string;
 };
 
 /* Only facts from the verified list. Where a detail is missing it is marked TODO. */
 const PROJECTS: Project[] = [
+  {
+    short: "Matching engine",
+    title: "Stock Exchange Matching Engine",
+    category: "Systems · Trading · Java 21",
+    tagline: "A Java 21 matching engine with a crash-safe command log and a live order book.",
+    status: "live",
+    statusLabel: "Live",
+    date: "Java 21",
+    live: ENGINE_LIVE_URL,
+    code: ENGINE_REPO_URL,
+    links: [{ label: "Benchmarks", href: `${ENGINE_REPO_URL}/blob/main/BENCHMARKS.md` }],
+    note: "Free Render hosting: the first load can take up to a minute.",
+    problem: "Match orders exactly and fast, and recover after a crash. A learning project, built phase by phase, with tests.",
+    architecture: "One sequencer thread logs each command, then applies it to a matching engine with no locks. Spring Boot serves REST and a WebSocket feed. Log replay and snapshots recover the book.",
+    outcome: "About 5.9M operations per second on the engine alone (JMH). 670 tests. The benchmark excludes logging and the network.",
+    highlights: [
+      "Limit orders (GTC, IOC, FOK), market orders, cancel and modify.",
+      "Prices are whole numbers in paise, never floats.",
+      "One writer thread, so the engine needs no locks.",
+      "Every command is logged before it is applied.",
+    ],
+    stack: ["Java 21", "Spring Boot", "REST", "WebSocket", "JMH", "Maven", "Docker", "Render"],
+    diagram: {
+      caption: "Engine architecture",
+      layers: [
+        { label: "Client", title: "Browser page", items: ["Order form", "Ladder", "Trade tape"] },
+        { label: "API", title: "Spring Boot", items: ["REST", "WebSocket feed"] },
+        { label: "Sequencer", title: "One engine thread", items: ["Bounded queue", "Log first", "Then apply"], hot: true },
+        { label: "Core", title: "Matching engine", items: ["Price-time priority", "No locks", "No I/O"] },
+        { label: "Durability", title: "Command log + snapshots", items: ["Replay", "Recovery"] },
+      ],
+    },
+  },
   {
     short: "ParkEase",
     title: "ParkEase",
@@ -33,10 +69,11 @@ const PROJECTS: Project[] = [
     status: "shipped",
     statusLabel: "Shipped",
     date: "Aug 2026",
-    problem: "Drivers, operators and admins use the same parking data, but each role needs different access.",
-    architecture: "ASP.NET Core Web API under Clean Architecture. React and TypeScript client. SQL Server. JWT auth with Driver, Operator and Admin roles.",
+    problem: "Drivers, operators and admins use the same parking data, but each role needs different access. Admins see everything, operators manage only their own lots, and drivers book slots and see their own history.",
+    architecture: "ASP.NET Core 8 Web API, layered as Controllers, Services and Repositories over EF Core (Code-First), with DTOs at every API boundary so entities are never exposed. JWT auth with BCrypt. React and TypeScript client built with Vite. Transactional email through Brevo.",
     outcome: "Slot mapping, booking, overstay billing, email notifications and admin reports. Documented in Swagger. Built solo.",
-    stack: ["ASP.NET Core", "Clean Architecture", "React", "TypeScript", "SQL Server", "JWT", "Swagger"],
+    stack: ["ASP.NET Core 8", "EF Core", "SQL Server", "JWT", "BCrypt", "Swagger", "React", "TypeScript", "Vite", "Brevo"],
+    code: `${GITHUB_URL}/ParkEase`,
     diagram: {
       caption: "ParkEase architecture",
       layers: [
@@ -128,6 +165,7 @@ const PROJECTS: Project[] = [
     architecture: "React front end on Firebase Realtime Database, with Google Maps.",
     outcome: "Finalist at the Pitchathon, VIT Chennai.",
     stack: ["React", "Firebase Realtime DB", "Google Maps"],
+    code: `${GITHUB_URL}/MedRush`,
   },
 ];
 
@@ -148,15 +186,7 @@ function Panel({ p, index }: { p: Project; index: number }) {
         </div>
         <h3 className="pj-title">{p.title}</h3>
         <p className="case-tag">{p.tagline}</p>
-        <dl className="pj-facts">
-          <div><dt>Problem</dt><dd>{p.problem}</dd></div>
-          <div><dt>Architecture</dt><dd>{p.architecture}</dd></div>
-          <div><dt>Outcome</dt><dd>{p.outcome}</dd></div>
-        </dl>
-        <div className="chip-row" style={{ marginTop: 18 }}>
-          {p.stack.map((s) => <span key={s} className="chip">{s}</span>)}
-        </div>
-        {(p.live || p.code) && (
+        {(p.live || p.code || p.links) && (
           <div className="chip-row" style={{ marginTop: 16 }}>
             {p.live && (
               <a href={p.live} target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--sm">
@@ -168,8 +198,28 @@ function Panel({ p, index }: { p: Project; index: number }) {
                 <Github size={15} aria-hidden /> Code
               </a>
             )}
+            {p.links?.map((l) => (
+              <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn btn--sm">{l.label} ↗</a>
+            ))}
           </div>
         )}
+        {p.note && <p className="pj-note">{p.note}</p>}
+        <dl className="pj-facts">
+          <div><dt>Problem</dt><dd>{p.problem}</dd></div>
+          <div><dt>Architecture</dt><dd>{p.architecture}</dd></div>
+          <div><dt>Outcome</dt><dd>{p.outcome}</dd></div>
+        </dl>
+        {p.highlights && (
+          <div className="pj-sub-wrap">
+            <h4 className="pj-sub">Key decisions</h4>
+            <ul className="plain-list">
+              {p.highlights.map((h) => <li key={h}>{h}</li>)}
+            </ul>
+          </div>
+        )}
+        <div className="chip-row" style={{ marginTop: 18 }}>
+          {p.stack.map((s) => <span key={s} className="chip">{s}</span>)}
+        </div>
       </div>
       {p.diagram && <ArchDiagram caption={p.diagram.caption} layers={p.diagram.layers} />}
     </article>
@@ -229,15 +279,6 @@ export default function SectionProjects() {
             {PROJECTS.map((p, i) => <Panel key={p.short} p={p} index={i} />)}
           </div>
         </div>
-
-        <article className="card building rise">
-          <div>
-            <span className="pill" data-status="building">Currently building</span>
-            <h3>Stock exchange matching engine</h3>
-            <p className="case-tag">Written in Java and built phase by phase, with tests for each phase.</p>
-          </div>
-          <div className="chip-row"><span className="chip chip--accent">Java</span><span className="chip">Tests</span></div>
-        </article>
       </div>
     </section>
   );

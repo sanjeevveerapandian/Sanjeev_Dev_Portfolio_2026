@@ -40,7 +40,7 @@ export default function SectionAbout() {
           <div className="card b-now rise">
             <h3>Right now</h3>
             <ul className="plain-list">
-              <li>Building a stock exchange matching engine in <b>Java</b>, phase by phase, with tests.</li>
+              <li>Shipped a stock exchange matching engine in <b>Java</b>, built phase by phase, with tests. It is live.</li>
               <li>Open to <b>SDE-1</b> and <b>Full-Stack</b> roles.</li>
             </ul>
           </div>

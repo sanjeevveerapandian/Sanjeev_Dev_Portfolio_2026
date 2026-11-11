@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { PrintButton } from "@/components/ui/PrintButton";
-import { EMAIL, GITHUB_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
+import { EMAIL, ENGINE_LIVE_URL, ENGINE_REPO_URL, GITHUB_URL, LINKEDIN_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Resume | Sanjeev Veerapandian",
@@ -37,6 +37,7 @@ const JOBS = [
 ];
 
 const PROJECTS: [string, string][] = [
+  ["Stock exchange matching engine", "Java 21 order-matching engine: price-time priority, write-ahead command log with crash recovery, REST and WebSocket API. About 5.9M operations per second on the engine alone (JMH), 670 tests. Live."],
   ["ParkEase (Aug 2026)", "Parking platform. ASP.NET Core Web API under Clean Architecture, React and TypeScript, SQL Server, JWT roles (Driver, Operator, Admin). Slot mapping, booking, overstay billing, email notifications, admin reports, Swagger. Built solo."],
   ["MSS Chennai", "Finance and billing platform in production at msschennai.in. React, Tailwind, SQL, REST."],
   ["PrepWise (Apr 2025)", "Voice mock interviews for 10+ roles. Next.js, Firebase, Vapi AI."],
@@ -93,9 +94,9 @@ export default function ResumePage() {
             <li key={t}>
               <strong>{t}.</strong> {d}
               {t === "MSS Chennai" && <> <a href={LIVE_SITE_URL}>Live site</a>.</>}
+              {t === "Stock exchange matching engine" && <> <a href={ENGINE_LIVE_URL}>Live</a>, <a href={ENGINE_REPO_URL}>code</a>.</>}
             </li>
           ))}
-          <li><strong>Currently building.</strong> A stock exchange matching engine in Java, phase by phase, with tests.</li>
         </ul>
       </section>
 

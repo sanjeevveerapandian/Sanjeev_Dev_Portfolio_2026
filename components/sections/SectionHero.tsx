@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { TerminalPrompt } from "@/components/ui/TerminalPrompt";
-import { LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
+import { ENGINE_LIVE_URL, LIVE_SITE_URL, OSS_REPO_URL, RESUME_URL } from "@/lib/constants";
 
 /* Every row below traces to the verified facts. */
 const LOG: { when: string; kind: "merged" | "live" | "ship" | "now"; body: React.ReactNode }[] = [
@@ -49,12 +49,12 @@ const LOG: { when: string; kind: "merged" | "live" | "ship" | "now"; body: React
     ),
   },
   {
-    when: "Now",
-    kind: "now",
+    when: "Latest",
+    kind: "live",
     body: (
       <>
-        <em>building</em> a stock exchange matching engine in Java
-        <span className="sub">phase by phase, with tests</span>
+        <span className="ok">live</span> <a href={ENGINE_LIVE_URL} target="_blank" rel="noopener noreferrer">matching engine</a>
+        <span className="sub">Java, built phase by phase, with tests</span>
         <span className="cursor" aria-hidden />
       </>
     ),
